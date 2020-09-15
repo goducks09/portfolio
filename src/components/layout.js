@@ -10,6 +10,10 @@ const GlobalStyle = createGlobalStyle`
         color: white;
         margin: 0;
     }
+
+    ul {
+      padding: 0;
+    }
 `;
 
 export default function Layout({ children }) {

@@ -26,17 +26,46 @@ const FlexSection = styled(Section)`
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
 `;
 
 const SectionHeader = styled.h2`
   flex-basis: 100%;
   font-size: 3.75rem;
   font-weight: bold;
+  margin: 0;
+`;
+
+const RotatingLI = styled.li`
+  flex-basis: 25%;
+  font-size: 2rem;
+  transition: transform 300ms ease;
+  &:hover {
+    transform: rotateX(-14deg) rotateY(14deg) rotateZ(0deg)
+  }
 `;
 
 const SkillContainer = styled.div`
+  align-self: start;
   flex-basis: 20%;
+  font-size: 1.25rem;
+  margin: 0 25px;
+  position: relative;
+  text-align: left;
+  z-index: 1;
+  &:hover .background-circle {
+    background: ${props => props.hoverColor};
+    border-radius: 50%;
+    bottom: 0;
+    height: 25vw;
+    margin: auto;
+    opacity: 0.8;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25vw;
+    z-index: -1;
+  }
 `;
 
 export default function Home() {
@@ -47,20 +76,24 @@ export default function Home() {
         <span>I create interactive websites and web apps</span>
       </Header>
 
-      <Section backgroundColor='linear-gradient(to right, #3fb5a7, #3fb5a7 25%, #1a556a);'>
+      <FlexSection backgroundColor='linear-gradient(to right, #3fb5a7, #3fb5a7 25%, #1a556a);'>
         <SectionHeader>My Core Development Principles</SectionHeader>
 
-        <ul css={`display: flex;`}>
-          <li>Write clean, maintainable code</li>
-          <li>Responsive design that is cross-browser compatible</li>
-          <li>Create dynamic sites that keep users engaged</li>
+        <ul css={`
+          display: flex;
+          justify-content: space-around;
+          margin: 0 0 10% 0;
+        `}>
+          <RotatingLI>Write clean, maintainable code</RotatingLI>
+          <RotatingLI>Responsive design that is cross-browser compatible</RotatingLI>
+          <RotatingLI>Create dynamic sites that keep users engaged</RotatingLI>
         </ul>
-      </Section>
+      </FlexSection>
 
       <FlexSection backgroundColor='#141414'>
         <SectionHeader>Skills</SectionHeader>
-
-        <SkillContainer>
+        <SkillContainer hoverColor='#f7eb13'>
+          <div class='background-circle'></div>
           <img src="" alt="Javascript icon"></img>
           <ul>
             <li>I am well-versed in JS ES6 syntax</li>
@@ -68,7 +101,8 @@ export default function Home() {
           </ul>
         </SkillContainer>
 
-        <SkillContainer>
+        <SkillContainer hoverColor='#61dbfb'>
+          <div class='background-circle'></div>
           <img src="" alt="React icon"></img>
           <ul>
             <li>React is the library/framework in which I have the highest proficiency</li>
@@ -77,7 +111,8 @@ export default function Home() {
           </ul>
         </SkillContainer>
 
-        <SkillContainer>
+        <SkillContainer hoverColor='#1c6eac'>
+          <div class='background-circle'></div>
           <img src="" alt="CSS icon"></img>
           <ul>
             <li>Lots of experience using newest CSS features like flexbox and animations</li>
@@ -85,7 +120,8 @@ export default function Home() {
           </ul>
         </SkillContainer>
 
-        <SkillContainer>
+        <SkillContainer hoverColor='#db5928'>
+          <div class='background-circle'></div>
           <img src="" alt="HTML icon"></img>
           <ul>
             <li>Fully competent in semantic HTML</li>

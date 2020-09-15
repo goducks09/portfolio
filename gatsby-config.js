@@ -4,6 +4,11 @@
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
 
+ //make .env file available
+require("dotenv").config({
+  path: `.env`
+});
+
 module.exports = {
   plugins: [
     `gatsby-plugin-styled-components`,
