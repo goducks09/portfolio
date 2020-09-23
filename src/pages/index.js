@@ -1,6 +1,10 @@
-import React from "react";
-import styled, {css} from "styled-components";
+import React, {useState, useEffect} from "react";
+import styled, {css, keyframes} from "styled-components";
 import Layout from "../components/layout";
+import { gsap } from "gsap";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+
+gsap.registerPlugin(MotionPathPlugin);
 
 const Header = styled.header`
   background-color: #141414;
@@ -45,6 +49,18 @@ const RotatingLI = styled.li`
   }
 `;
 
+//Animation for moving skill item when clicked. 'To' distance calculation (100%-basis)/2
+const slideUp = keyframes`
+  from {
+    left: 0;
+  }
+
+  to {
+    left: calc((100vw - 20%)/2);
+  }
+`;
+
+//TODO change left ((100vw - flexbasis)/2) and bottom properties using animation https://styled-components.com/docs/basics#animations
 const SkillContainer = styled.div`
   align-self: start;
   flex-basis: 20%;
@@ -69,6 +85,17 @@ const SkillContainer = styled.div`
 `;
 
 export default function Home() {
+  const [activeId, setActive] = useState("");
+
+  const handleToggle = (e) => {
+    setActive(e.currentTarget.id);
+  };
+
+  useEffect(() => {
+    gsap.to('.active', {duration: 2, x: 300, y: 150});
+    gsap.to('.pages__SkillContainer-hZnYWc:not(.active)', {duration: 2, x: 0, y: 0});
+  }, [activeId]);
+
   return (
     <Layout>
       <Header>
@@ -92,7 +119,7 @@ export default function Home() {
 
       <FlexSection backgroundColor='#141414'>
         <SectionHeader>Skills</SectionHeader>
-        <SkillContainer hoverColor='#f7eb13'>
+        <SkillContainer id='js' className={activeId==='js' ? "active" : null} onClick={handleToggle} hoverColor='#f7eb13'>
           <div class='background-circle'></div>
           <img src="" alt="Javascript icon"></img>
           <ul>
@@ -101,7 +128,7 @@ export default function Home() {
           </ul>
         </SkillContainer>
 
-        <SkillContainer hoverColor='#61dbfb'>
+        <SkillContainer  id='react' className={activeId==='react' ? "active" : null} onClick={handleToggle} hoverColor='#61dbfb'>
           <div class='background-circle'></div>
           <img src="" alt="React icon"></img>
           <ul>
@@ -111,7 +138,7 @@ export default function Home() {
           </ul>
         </SkillContainer>
 
-        <SkillContainer hoverColor='#1c6eac'>
+        <SkillContainer id='css' className={activeId==='css' ? "active" : null} onClick={handleToggle} hoverColor='#1c6eac'>
           <div class='background-circle'></div>
           <img src="" alt="CSS icon"></img>
           <ul>
@@ -120,7 +147,7 @@ export default function Home() {
           </ul>
         </SkillContainer>
 
-        <SkillContainer hoverColor='#db5928'>
+        <SkillContainer id='html' className={activeId==='html' ? "active" : null} onClick={handleToggle} hoverColor='#db5928'>
           <div class='background-circle'></div>
           <img src="" alt="HTML icon"></img>
           <ul>

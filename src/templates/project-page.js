@@ -3,7 +3,6 @@ import ReactMarkdown from 'react-markdown/with-html';
 import Layout from "../components/layout";
 
 export default function Page( context ) {
-  console.log(context);
   return (
     <Layout>
       <h1>{context.pageContext.title}</h1>
