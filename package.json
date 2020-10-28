@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.11.1",
-    "gatsby": "^2.24.26",
+    "fontsource-nunito": "^3.0.9",
+    "gatsby": "^2.24.85",
     "gatsby-plugin-styled-components": "^3.3.10",
     "gatsby-source-github-api": "^0.2.1",
     "gsap": "^3.5.1",
