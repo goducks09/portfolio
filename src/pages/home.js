@@ -129,7 +129,7 @@ const SkillContainer = styled.div`
   @media (max-width: 650px) {
     align-self: initial;
     flex-basis: initial;
-    height: 300px;
+    min-height: 325px;
     justify-content: space-evenly;
 
     & ul {

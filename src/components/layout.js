@@ -53,6 +53,10 @@ const GlobalStyle = createGlobalStyle`
         text-align: left;
       }
 
+      #about {
+        padding-bottom: 15%;
+      }
+
       .hero {
         height: 35vh;
       }
