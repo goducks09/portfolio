@@ -205,11 +205,18 @@ export default function Home(context) {
   
   // Use ref to access skills section once DOM is available
   const skills = useRef(true);
-  // check window size to enable animations
-  const mq = window.matchMedia("(min-width: 650px)");
+  // check window is available for server rendering and then check size to enable animations
+  let mq;
+  if (typeof window !== 'undefined') {
+    mq = window.matchMedia("(min-width: 650px)");
+  }
   //Get width of viewport, height of skills section, and find center
-  const viewWidth = document.documentElement.clientWidth;
-  const viewCenterX = viewWidth/2;
+  let viewWidth;
+  let viewCenterX;
+  if (typeof document !== 'undefined') {
+    viewWidth = document.documentElement.clientWidth;
+    viewCenterX = viewWidth/2;
+  }
 
   const handleToggle = (e) => {
     if(e.currentTarget.id === activeId) {
@@ -358,7 +365,10 @@ export default function Home(context) {
   }, [activeId, viewCenterX]);
 
   // retrieve list of projects
-  const pages = context.data.githubData.data.user.pinnedItems.nodes;
+  let pages = [];
+  if(context.data) {
+    pages = context.data.githubData.data.user.pinnedItems.nodes;
+  }
   
   return (
     <Layout>
