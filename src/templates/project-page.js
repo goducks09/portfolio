@@ -30,6 +30,7 @@ const ProjectSection = styled.section`
   & .side {
     flex: 0 0 20%;
     text-align: center;
+    padding: 5% 2%;
   }
 
   & .main {
@@ -37,13 +38,34 @@ const ProjectSection = styled.section`
     border: 2px solid rgba(235, 237, 238, 0.8);
     flex-basis: 80%;
     margin-right: 20%;
-    padding: 0 10%;
+    padding: 5%;
+  }
+
+  & ul {
+    margin-left: 5%;
+  }
+
+  @media (max-width: 719px) {
+    flex-direction: column;
+
+    & .side {
+      padding: 0;
+    }
+    
+    & .main {
+      margin: initial;
+    }
   }
 `;
 
 const SectionHeader = styled.h2`
-  font-size: 1.5rem;
+  color: #555;
+  font-size: 1.25rem;
   font-weight: 400;
+
+  @media (max-width: 719px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export default function Page( context ) {
@@ -72,5 +94,3 @@ export default function Page( context ) {
     </Layout>
   );
 }
-
-//TODO add conditional images based on the project. Save them to the images folder

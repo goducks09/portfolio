@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useMemo, useRef} from 'react';
 import { Link } from 'gatsby';
-import styled, {css, keyframes} from 'styled-components';
+import styled from 'styled-components';
 import Layout from '../components/layout';
 import CSSImg from '../images/css-64.png';
 import JSImg from '../images/javascript-64.png';
@@ -46,6 +46,11 @@ const FlexSection = styled(Section)`
     font-size: 1.5rem;
     margin: 0 12.5%;
   }
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+    justify-content: normal;
+  }
 `;
 
 const SectionHeader = styled.h2`
@@ -53,6 +58,20 @@ const SectionHeader = styled.h2`
   font-size: 3.75rem;
   font-weight: bold;
   margin: 0;
+
+  @media (max-width: 1023px) {
+    font-size: 3rem;
+  }
+
+  @media (max-width: 719px) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 650px) {
+    flex-basis: initial;
+    margin-bottom: 10%;
+    padding: 10% 0;
+  }
 `;
 
 const Line = styled.div`
@@ -67,8 +86,17 @@ const RotatingLI = styled.li`
   font-size: 2rem;
   opacity: 0;
   transition: transform 300ms ease;
+
   &:hover {
     transform: rotateX(-14deg) rotateY(14deg) rotateZ(0deg)
+  }
+
+  @media (max-width: 1023px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 650px) {
+    margin: 5% 0;
   }
 `;
 
@@ -83,33 +111,30 @@ const SkillContainer = styled.div`
   text-align: left;
   z-index: 1;
 
-  &:hover .background-circle {
-    background: ${props => props.hoverColor};
-    border-radius: 50%;
-    bottom: 0;
-    height: 25vw;
-    margin: auto;
-    opacity: 0.6;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 25vw;
-    z-index: -1;
-  }
-
-  &.active:hover .background-circle {
-    background: unset;
-    height: unset;
-    width: unset;
-  }
-
   & img {
     align-self: center;
+    cursor: pointer;
   }
 
   & ul {
     opacity: 0;
+    padding-left: 7%;
     visibility: hidden;
+  }
+
+  @media (max-width: 1023px) {
+    margin: 0;
+  }
+
+  @media (max-width: 650px) {
+    align-self: initial;
+    flex-basis: initial;
+    height: 300px;
+    justify-content: space-evenly;
+
+    & ul {
+      margin: 0 10%;
+    }
   }
 `;
 
@@ -120,7 +145,7 @@ const ProjectGallery = styled.div`
         [row3-start] "first last" 1fr [row3-end]
         / auto auto;
   height: 75vh;
-  margin: 15% 0;
+  padding: 15% 0;
   width: 100%;
 
   & .item-container {
@@ -130,10 +155,20 @@ const ProjectGallery = styled.div`
   & .item-container:first-of-type {
     grid-area: first;
   }
+
+  @media (max-width: 650px) {
+    display: block;
+    height: auto;
+
+    & .item-container {
+      height: 40vh;
+      margin: 10% 0;
+    }
+  }
 `;
 
 const ProjectItem = styled.div`
-  background: no-repeat center/cover url(${props => props.image});
+  background: no-repeat bottom/cover url(${props => props.image});
   height: 100%;
   width: 100%;
 
@@ -147,6 +182,20 @@ const ProjectItem = styled.div`
     margin: 0;
     text-decoration: none;
   }
+
+  @media (max-width: 719px) {
+    & h3 {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 650px) {
+    background-position: center;
+
+    & h3 {
+      font-size: 2.25rem;
+    }
+  }
 `;
 
 export default function Home(context) {
@@ -156,11 +205,11 @@ export default function Home(context) {
   
   // Use ref to access skills section once DOM is available
   const skills = useRef(true);
+  // check window size to enable animations
+  const mq = window.matchMedia("(min-width: 650px)");
   //Get width of viewport, height of skills section, and find center
   const viewWidth = document.documentElement.clientWidth;
-  const viewHeight = skills.current.offsetHeight;
   const viewCenterX = viewWidth/2;
-  const viewCenterY = viewHeight/2;
 
   const handleToggle = (e) => {
     if(e.currentTarget.id === activeId) {
@@ -187,16 +236,20 @@ export default function Home(context) {
     return className;
   }
 
+  //cause 'skill' items to bounce continuosly
   useEffect(() => {
-    timeline.fromTo('.skill', { y: -10 }, {
-      y: 15,
-      repeat: -1,
-      yoyo: true,
-      ease: "power1.inOut",
-      duration: 1
-    });
+    if(mq.matches) {
+      timeline.fromTo('.skill', { y: -10 }, {
+        y: 15,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut",
+        duration: 1
+      });
+    }
   }, []);
 
+  //if the bounce state changes, play or pause the animation
   useEffect(() => {
     if (bounce) {
       timeline.play();
@@ -216,7 +269,6 @@ export default function Home(context) {
   
       //animation for 'about' section
       let tl = gsap.timeline({
-        // yes, we can add it to an entire timeline!
         scrollTrigger:{trigger: '.line', endTrigger: ".line-2", scrub: 1}
       });
       tl.from('.line', {
@@ -238,57 +290,53 @@ export default function Home(context) {
 
       //update ref to indicate page has rendered previously
       firstUpdate.current = false;
-
       return;
     }
-    
-    //animation for active skill
-    gsap.fromTo('.active', {
-      x: function(index, target, targets) {
-        const style = window.getComputedStyle(target);
-        const matrix = style.getPropertyValue('transform');
-        let fromX;
 
-        if(matrix && matrix !== 'none') {
-          //Get transform css property from target and extract 'x' value
-          let values = matrix.replace(/\s+/g, '');
-          values = values.split()[0].split('(')[1].split(')')[0].split(',');
-          fromX = values[4];
-        }
-        
-        return fromX;
-      },
-      y: function(index, target, targets) {
-        const style = window.getComputedStyle(target);
-        const matrix = style.getPropertyValue('transform');
-        let fromY;
-
-        if(matrix && matrix !== 'none') {
-          //Get transform css property from target and extract 'y' value
-          let values = matrix.replace(/\s+/g, '');
-          values = values.split()[0].split('(')[1].split(')')[0].split(',');
-          fromY = values[5];
-        }
-        return fromY;
-      }
-      },
-      {duration: 2,
+    // If the window size matches the media query
+    if(mq.matches) {
+      //animation for active skill
+      gsap.fromTo('.active', {
         x: function(index, target, targets) {
-          // get current 'x' position and height of element
           const style = window.getComputedStyle(target);
-          const marginLeft = style.marginLeft;
-          const marginRight = style.marginRight;
-          const currentX = target.offsetLeft;
-          const targetWidth = target.offsetWidth;
-          return viewCenterX - currentX - (targetWidth/2);
+          const matrix = style.getPropertyValue('transform');
+          let fromX;
+
+          if(matrix && matrix !== 'none') {
+            //Get transform css property from target and extract 'x' value
+            let values = matrix.replace(/\s+/g, '');
+            values = values.split()[0].split('(')[1].split(')')[0].split(',');
+            fromX = values[4];
+          }
+          
+          return fromX;
         },
-        y: 0
-      }
-    );
-    //animation to reveal skill list
-    gsap.to('.active ul', {delay: .75, duration: 2, opacity: 1, visibility: 'visible'} );
-    //animation for moving not selected skills to side
-    gsap.to('.to-left',
+        y: function(index, target, targets) {
+          const style = window.getComputedStyle(target);
+          const matrix = style.getPropertyValue('transform');
+          let fromY;
+
+          if(matrix && matrix !== 'none') {
+            //Get transform css property from target and extract 'y' value
+            let values = matrix.replace(/\s+/g, '');
+            values = values.split()[0].split('(')[1].split(')')[0].split(',');
+            fromY = values[5];
+          }
+          return fromY;
+        }
+        },
+        {duration: 2,
+          x: function(index, target, targets) {
+            // get current 'x' position of element
+            const currentX = target.offsetLeft;
+            const targetWidth = target.offsetWidth;
+            return viewCenterX - currentX - (targetWidth/2);
+          },
+          y: 0
+        }
+      );
+      //animation for moving not selected skills to side
+      gsap.to('.to-left',
       { duration: 2,
         x: function(index, target, targets) {
           const newX = target.offsetLeft;
@@ -298,12 +346,16 @@ export default function Home(context) {
           return index * 75;
         }
       }
-    );
-    //animation to revert skills to center
-    gsap.to('.inactive', {duration: 2, x: 0, y: 0});
+      );
+      //animation to revert skills to center
+      gsap.to('.inactive', {duration: 2, x: 0, y: 0});
+    }
+
+    //animation to reveal skill list
+    gsap.to('.active ul', {delay: .75, duration: 2, opacity: 1, visibility: 'visible'} );
     //animation for hiding skill list
     gsap.to(['.to-left ul', '.inactive ul'], {duration: 1, opacity: 0} );
-  }, [activeId]);
+  }, [activeId, viewCenterX]);
 
   // retrieve list of projects
   const pages = context.data.githubData.data.user.pinnedItems.nodes;
@@ -343,7 +395,6 @@ export default function Home(context) {
       <FlexSection ref={skills} backgroundColor='#141414'>
         <SectionHeader>Skills</SectionHeader>
         <SkillContainer id='js' className={`${activeId ? updateClass('js'): 'inactive'} skill`} onClick={handleToggle} hoverColor='#f7eb13'>
-          <div className='background-circle'></div>
           <img src={JSImg} alt="Javascript icon"></img>
           <ul>
             <li>I am well-versed in JS ES6 syntax</li>
@@ -352,7 +403,6 @@ export default function Home(context) {
         </SkillContainer>
 
         <SkillContainer  id='react' className={`${activeId ? updateClass('react'): 'inactive'} skill`} onClick={handleToggle} hoverColor='#61dbfb'>
-          <div className='background-circle'></div>
           <img src={ReactImg} alt="React icon"></img>
           <ul>
             <li>React is the library/framework in which I have the highest proficiency</li>
@@ -362,16 +412,15 @@ export default function Home(context) {
         </SkillContainer>
 
         <SkillContainer id='css' className={`${activeId ? updateClass('css'): 'inactive'} skill`} onClick={handleToggle} hoverColor='#1c6eac'>
-          <div className='background-circle'></div>
           <img src={CSSImg} alt="CSS icon"></img>
           <ul>
             <li>Lots of experience using newest CSS features like flexbox and animations</li>
+            <li>Experience using Styled Components</li>
             <li>Knowledgeable in SASS preprocessing</li>
           </ul>
         </SkillContainer>
 
         <SkillContainer id='html' className={`${activeId ? updateClass('html'): 'inactive'} skill`} onClick={handleToggle} hoverColor='#db5928'>
-          <div className='background-circle'></div>
           <img src={HTMLImg} alt="HTML icon"></img>
           <ul>
             <li>Fully competent in semantic HTML</li>
@@ -387,7 +436,7 @@ export default function Home(context) {
           {pages.map( project =>
               <div className='item-container' key={project.name}>
                 <ProjectItem image={project.openGraphImageUrl}>
-                    <Link href={project.name}><h3>{project.name}</h3></Link>
+                    <Link href={project.name}><h3>{project.description}</h3></Link>
                 </ProjectItem>
               </div>
             )
@@ -398,7 +447,7 @@ export default function Home(context) {
       <FlexSection backgroundColor='#141414'>
         <SectionHeader>Connect With Me</SectionHeader>
         <p>If you are looking for a full-time developer, or are a developer wanting to connect with industry peers, please message me through LinkedIn! I look forward to chatting with you!</p>
-        <a href="https://www.linkedin.com/in/chris-pulver/" target="_blank"><img src={LinkedinImg} alt="LinkedIn link"></img></a>
+        <a href="https://www.linkedin.com/in/chris-pulver/" target="_blank" rel="noopener noreferrer"><img src={LinkedinImg} alt="LinkedIn link"></img></a>
       </FlexSection>
     </Layout>
   );
