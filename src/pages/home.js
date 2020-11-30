@@ -299,7 +299,7 @@ export default function Home(context) {
       gsap.to('.scroll-list', {
         duration: 1,
         stagger: .75,
-        scrollTrigger: {trigger: '#principles', scrub: true, pin: true, markers: true},
+        scrollTrigger: {trigger: '#principles', scrub: true, pin: true},
         opacity: 1
       });
 
