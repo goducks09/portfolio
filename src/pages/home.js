@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useMemo, useRef} from 'react';
-import { Link } from 'gatsby';
+import AniLink from "gatsby-plugin-transition-link/AniLink";
 import styled from 'styled-components';
 import Layout from '../components/layout';
 import CSSImg from '../images/css-64.png';
@@ -489,11 +489,11 @@ export default function Home(context) {
         <ProjectGallery>
           {pages.map( project =>
               <div className='item-container' key={project.name}>
-                <Link href={project.name}>
+                <AniLink cover to={project.name} bg='linear-gradient(to right,#F3F3F3,#E5E9EB)'>
                   <ProjectItem image={project.openGraphImageUrl}>
                       <h3>{project.description}</h3>
                   </ProjectItem>
-                </Link>
+                </AniLink>
               </div>
             )
           }

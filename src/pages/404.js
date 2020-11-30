@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import AniLink from "gatsby-plugin-transition-link/AniLink";
 import Layout from '../components/layout';
 
 export default function ErrorPage() {
@@ -8,9 +8,9 @@ export default function ErrorPage() {
             <div id='error'>
                 <h1>Oh no! You've found the dreaded 404 page.</h1>
                 <p>*womp womp womp*</p>
-                <Link to='/'>
+                <AniLink cover to='/' bg='linear-gradient(to right,#8ab4ff,#e492ff)'>
                     <p>Try going back home and navigating again.</p>
-                </Link>
+                </AniLink>
             </div>
         </Layout>
     );
