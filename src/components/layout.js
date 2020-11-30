@@ -1,5 +1,6 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
+import SEO from './seo.js';
 import CodeImg from '../images/code-background.jpg';
 import "fontsource-nunito/400.css";
 import "fontsource-nunito/700.css";
@@ -23,8 +24,21 @@ const GlobalStyle = createGlobalStyle`
       text-decoration: none;
     }
 
+    footer {
+      background-color: #141414;
+      color: white;
+      font-style: italic;
+      padding: 50px 0 20px;
+      text-align: center;
+    }
+
+    footer a:visited {
+      color: white;
+    }
+
     #about p {
-      padding: 0 10%;
+      margin: 0;
+      padding: 1.5rem 10%;
       text-align: left;
     }
 
@@ -41,8 +55,20 @@ const GlobalStyle = createGlobalStyle`
 
     .hero-header {
       background: black;
-      margin: -2rem auto 0;
+      margin: -2.5rem auto 0;
       width: 75%;
+    }
+
+    @media (max-width: 1023px) {
+      .hero-header {
+        margin: -2rem auto 0;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero-header {
+        margin: -1.75rem auto 0;
+      }
     }
 
     @media (max-width: 650px) {
@@ -66,19 +92,14 @@ const GlobalStyle = createGlobalStyle`
         width: 90%;
       }
     }
-
-    @media (max-width: 493px) {
-      .hero-header {
-        margin: -3.25rem auto 0;
-      }
-    }
 `;
 
 export default function Layout({ children }) {
-    return (
-      <>
-        <GlobalStyle/>
-        {children}
-      </>
-    )
-  }
+  return (
+    <>
+      <GlobalStyle/>
+      <SEO />
+      {children}
+    </>
+  )
+}

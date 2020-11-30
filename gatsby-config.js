@@ -10,7 +10,13 @@ require("dotenv").config({
 });
 
 module.exports = {
+  siteMetadata: {
+    title: "Chris' Web Developer Portfolio",
+    description:
+      "Chris' web developer portfolio showcases his programming skills in React, Javascript, Python, and more"
+  },
   plugins: [
+    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
     {
       resolve: `gatsby-source-github-api`,

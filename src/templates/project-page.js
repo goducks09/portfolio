@@ -10,22 +10,39 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   text-align: center;
 `;
-
+//added position and z-index
 const Title = styled.h1 `
-  color: white;
+  color: #222;
   font-size: 3.75rem;
+  position: relative;
+  z-index: 1;
+
+  @media (max-width: 491px) {
+    font-size: 2.75rem;
+  }
 `;
 
-const MainImg = styled.img`
-  height: auto;
-  margin 5% auto;
-  width: 50%;
+const MainImg = styled.div`
+  background: left/cover no-repeat;
+  height: 750px;
+  position: fixed;
+  width: 100%;
+
+  @media (max-width: 491px) {
+    height: 500px;
+  }
 `;
 
+//added position and margin-top
 const ProjectSection = styled.section`
   background: #E5E9EB;
   display: flex;
+  position: relative;
   text-align: left;
+
+  &:first-of-type {
+    margin-top: 575px;
+  }
 
   & .side {
     flex: 0 0 20%;
@@ -55,6 +72,12 @@ const ProjectSection = styled.section`
     & .main {
       margin: initial;
     }
+
+    @media (max-width: 491px) {
+      &:first-of-type {
+        margin-top: 375px;
+      }
+    }
   }
 `;
 
@@ -73,7 +96,7 @@ export default function Page( context ) {
     <Layout>
       <ContentWrapper>
         <Title>{context.pageContext.title}</Title>
-        <MainImg src={context.pageContext.image} alt='Project design'></MainImg>
+        <MainImg  style={{backgroundImage: `url(${context.pageContext.image})`}}></MainImg>
         <ProjectSection>
           <div className='side'>
             <SectionHeader>Project Overview</SectionHeader>

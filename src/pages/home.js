@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Layout from '../components/layout';
 import CSSImg from '../images/css-64.png';
 import JSImg from '../images/javascript-64.png';
-import HTMLImg from '../images/html-64.png';
+import CodeImg from '../images/code-64.png';
 import ReactImg from '../images/react-64.png';
 import LinkedinImg from '../images/linkedin-48.png';
 import { gsap } from 'gsap';
@@ -36,6 +36,7 @@ const Section = styled.section`
   text-align: center;
 `;
 
+//TODO make column always and wrap skills section in a container. Use min-height media query for sections that are too long on tablet
 const FlexSection = styled(Section)`
   align-items: center;
   display: flex;
@@ -57,7 +58,7 @@ const SectionHeader = styled.h2`
   flex-basis: 100%;
   font-size: 3.75rem;
   font-weight: bold;
-  margin: 0;
+  margin: 0 0 10%;
 
   @media (max-width: 1023px) {
     font-size: 3rem;
@@ -71,6 +72,7 @@ const SectionHeader = styled.h2`
     flex-basis: initial;
     margin-bottom: 10%;
     padding: 10% 0;
+    width: 100%;
   }
 `;
 
@@ -145,8 +147,9 @@ const ProjectGallery = styled.div`
         [row3-start] "first last" 1fr [row3-end]
         / auto auto;
   height: 75vh;
+  margin: auto;
   padding: 15% 0;
-  width: 100%;
+  width: 80%;
 
   & .item-container {
     overflow: hidden;
@@ -154,6 +157,10 @@ const ProjectGallery = styled.div`
 
   & .item-container:first-of-type {
     grid-area: first;
+  }
+
+  @media (max-width: 1050px) {
+    width: 100%;
   }
 
   @media (max-width: 650px) {
@@ -168,7 +175,7 @@ const ProjectGallery = styled.div`
 `;
 
 const ProjectItem = styled.div`
-  background: no-repeat bottom/cover url(${props => props.image});
+  background: no-repeat center 50%/cover url(${props => props.image});
   height: 100%;
   width: 100%;
 
@@ -177,9 +184,10 @@ const ProjectItem = styled.div`
   }
 
   & h3 {
-    color: white;
+    color: #222;
     font-size: 2.75rem;
     margin: 0;
+    padding-top: 20px;
     text-decoration: none;
   }
 
@@ -190,7 +198,7 @@ const ProjectItem = styled.div`
   }
 
   @media (max-width: 650px) {
-    background-position: center;
+    background-position: left;
 
     & h3 {
       font-size: 2.25rem;
@@ -210,7 +218,7 @@ export default function Home(context) {
   if (typeof window !== 'undefined') {
     mq = window.matchMedia("(min-width: 650px)");
   }
-  //Get width of viewport, height of skills section, and find center
+  //Get width of viewport and find center
   let viewWidth;
   let viewCenterX;
   if (typeof document !== 'undefined') {
@@ -291,7 +299,7 @@ export default function Home(context) {
       gsap.to('.scroll-list', {
         duration: 1,
         stagger: .75,
-        scrollTrigger: {trigger: '#principles', scrub: true, pin: true},
+        scrollTrigger: {trigger: '#principles', scrub: true, pin: true, markers: true},
         opacity: 1
       });
 
@@ -302,6 +310,7 @@ export default function Home(context) {
 
     // If the window size matches the media query
     if(mq.matches) {
+      console.log(gsap.globalTimeline.getChildren().filter(tween => tween.isActive()));
       //animation for active skill
       gsap.fromTo('.active', {
         x: function(index, target, targets) {
@@ -342,7 +351,7 @@ export default function Home(context) {
           y: 0
         }
       );
-      //animation for moving not selected skills to side
+      //animation for moving non selected skills to side
       gsap.to('.to-left',
       { duration: 2,
         x: function(index, target, targets) {
@@ -392,7 +401,7 @@ export default function Home(context) {
         </p>
       </Section>
 
-      <FlexSection id='principles' backgroundColor='linear-gradient(to bottom,#8AB4FF,#5291FF);'>
+      <FlexSection id='principles' backgroundColor='linear-gradient(to bottom,#141414,#5291FF, #141414);'>
         <SectionHeader>My Core Development Principles</SectionHeader>
 
         <ul id='principle-list'>
@@ -408,7 +417,8 @@ export default function Home(context) {
           <img src={JSImg} alt="Javascript icon"></img>
           <ul>
             <li>I am well-versed in JS ES6 syntax</li>
-            <li>I have a solid foundation in vanilla JS, in addition to experience with jQuery, Vue, and React</li>
+            <li>I have a solid foundation in vanilla JS</li>
+            <li>Experience with jQuery, Vue, and React</li>
           </ul>
         </SkillContainer>
 
@@ -421,33 +431,36 @@ export default function Home(context) {
           </ul>
         </SkillContainer>
 
-        <SkillContainer id='css' className={`${activeId ? updateClass('css'): 'inactive'} skill`} onClick={handleToggle} hoverColor='#1c6eac'>
-          <img src={CSSImg} alt="CSS icon"></img>
+        <SkillContainer id='code' className={`${activeId ? updateClass('code'): 'inactive'} skill`} onClick={handleToggle} hoverColor='#db5928'>
+          <img src={CodeImg} alt="Code icon"></img>
           <ul>
-            <li>Lots of experience using newest CSS features like flexbox and animations</li>
-            <li>Experience using Styled Components</li>
-            <li>Knowledgeable in SASS preprocessing</li>
+            <li>Professional experience with Python (Flask)</li>
+            <li>Professional experience with PHP (Wordpress)</li>
+            <li>Full-stack experience using NodeJS, MongoDB, and Express in projects</li>
           </ul>
         </SkillContainer>
 
-        <SkillContainer id='html' className={`${activeId ? updateClass('html'): 'inactive'} skill`} onClick={handleToggle} hoverColor='#db5928'>
-          <img src={HTMLImg} alt="HTML icon"></img>
+        <SkillContainer id='css' className={`${activeId ? updateClass('css'): 'inactive'} skill`} onClick={handleToggle} hoverColor='#1c6eac'>
+          <img src={CSSImg} alt="CSS icon"></img>
           <ul>
-            <li>Fully competent in semantic HTML</li>
-            <li>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </li>
+            <li>Experience using newest CSS features like flexbox, grid, and animations</li>
+            <li>Experience using Styled Components</li>
+            <li>Knowledgeable in SASS preprocessing</li>
           </ul>
         </SkillContainer>
       </FlexSection>
 
       <Section backgroundColor='#F3F3F3'>
         <div className='hero'></div>
-        <SectionHeader className='hero-header'>Take a Look at My Work</SectionHeader>
+        <SectionHeader className='hero-header'>View My Work</SectionHeader>
         <ProjectGallery>
           {pages.map( project =>
               <div className='item-container' key={project.name}>
-                <ProjectItem image={project.openGraphImageUrl}>
-                    <Link href={project.name}><h3>{project.description}</h3></Link>
-                </ProjectItem>
+                <Link href={project.name}>
+                  <ProjectItem image={project.openGraphImageUrl}>
+                      <h3>{project.description}</h3>
+                  </ProjectItem>
+                </Link>
               </div>
             )
           }
@@ -459,6 +472,7 @@ export default function Home(context) {
         <p>If you are looking for a full-time developer, or are a developer wanting to connect with industry peers, please message me through LinkedIn! I look forward to chatting with you!</p>
         <a href="https://www.linkedin.com/in/chris-pulver/" target="_blank" rel="noopener noreferrer"><img src={LinkedinImg} alt="LinkedIn link"></img></a>
       </FlexSection>
+      <footer><a target="_blank" rel="noreferrer" href="https://icons8.com/icon/pack/programming/nolan">Icons by icons8</a></footer>
     </Layout>
   );
 }
