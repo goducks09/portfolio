@@ -7,13 +7,14 @@ import "fontsource-nunito/700.css";
 
 const GlobalStyle = createGlobalStyle`
     html {
-        font-family: 'Nunito';
-        font-size: 16px;
+      background-color: #141414;
+      font-family: 'Nunito';
+      font-size: 16px;
     }
 
     body {
-        color: white;
-        margin: 0;
+      color: white;
+      margin: 0;
     }
 
     ul {
@@ -57,6 +58,10 @@ const GlobalStyle = createGlobalStyle`
       background: black;
       margin: -2.5rem auto 0;
       width: 75%;
+    }
+
+    #error {
+      text-align: center;
     }
 
     @media (max-width: 1023px) {

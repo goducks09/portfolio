@@ -227,12 +227,14 @@ export default function Home(context) {
   }
 
   const handleToggle = (e) => {
-    if(e.currentTarget.id === activeId) {
-      setActive("none");
-      setBounce(true);
-    } else {
-      setActive(e.currentTarget.id);
-      setBounce(false);
+    if(!gsap.isTweening('.active')) {
+      if(e.currentTarget.id === activeId) {
+        setActive("none");
+        setBounce(true);
+      } else {
+        setActive(e.currentTarget.id);
+        setBounce(false);
+      }
     }
   };
 
@@ -251,16 +253,122 @@ export default function Home(context) {
     return className;
   }
 
-  //cause 'skill' items to bounce continuosly
+  // ***ANIMATIONS***
+
+  //animate header
+  function animateHeader() {
+    gsap.fromTo('h1', {y: -100}, {delay: .25, duration: .75, opacity: 1, y: 0} );
+    gsap.fromTo('header span', {y: -100}, {delay: 1, duration: .75, opacity: 1, y: 0} );
+  }
+
+  //animation for 'about' section
+  function animateAbout() {
+    let tl = gsap.timeline({
+      scrollTrigger:{trigger: '.line', endTrigger: ".line-2", scrub: 1}
+    });
+    tl.from('.line', {
+      scaleX: 0,
+      transformOrigin: "left"
+    })
+    .from('.line-2', {
+      scaleX: 0,
+      transformOrigin: "right"
+    });
+  }
+
+  //animation for 'principles' section
+  function animatePrinciples() {
+     gsap.to('.scroll-list', {
+      duration: 1,
+      stagger: .75,
+      scrollTrigger: {trigger: '#principles', scrub: true, pin: true},
+      opacity: 1
+    });
+  }
+
+  //animation for active skill
+  function animateActive() {
+    gsap.fromTo('.active', {
+      x: function(index, target, targets) {
+        //Get transform css property from target and extract 'x' value
+        const style = window.getComputedStyle(target);
+        const matrix = style.getPropertyValue('transform');
+        let fromX;
+
+        if(matrix && matrix !== 'none') {
+          let values = matrix.replace(/\s+/g, '');
+          values = values.split()[0].split('(')[1].split(')')[0].split(',');
+          fromX = values[4];
+        }
+        
+        return fromX;
+      },
+      y: function(index, target, targets) {
+        //Get transform css property from target and extract 'y' value
+        const style = window.getComputedStyle(target);
+        const matrix = style.getPropertyValue('transform');
+        let fromY;
+
+        if(matrix && matrix !== 'none') {
+          let values = matrix.replace(/\s+/g, '');
+          values = values.split()[0].split('(')[1].split(')')[0].split(',');
+          fromY = values[5];
+        }
+        return fromY;
+      }
+      },
+      {duration: 2,
+        x: function(index, target, targets) {
+          // get current 'x' position of element
+          const currentX = target.offsetLeft;
+          const targetWidth = target.offsetWidth;
+          return viewCenterX - currentX - (targetWidth/2);
+        },
+        y: 0
+      }
+    );
+  }
+
+  //animation for moving non-selected skills to side
+  function animateLeft() {
+    gsap.to('.to-left',
+    { duration: 2,
+      x: function(index, target, targets) {
+        const newX = target.offsetLeft;
+        return -newX;
+      },
+      y: function(index, target, targets) {
+        return index * 75;
+      }
+    }
+    );
+  }
+
+  //animation to revert skills to center
+  function animateInactive() {
+    gsap.to('.inactive', {duration: 2, x: 0, y: 0});
+  }
+
+  //animation for skill list
+  function animateSkillList() {
+    gsap.to('.active ul', {delay: .75, duration: 2, opacity: 1, visibility: 'visible'} );
+    //animation for hiding skill list
+    gsap.to(['.to-left ul', '.inactive ul'], {duration: 1, opacity: 0} );
+  }
+
+
+  //Use ref to determine if first render to prevent effect from firing
+  const firstUpdate = useRef(true);
   useEffect(() => {
-    if(mq.matches) {
-      timeline.fromTo('.skill', { y: -10 }, {
-        y: 15,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut",
-        duration: 1
-      });
+    //determine if first render
+    if (firstUpdate.current) {
+      animateHeader();
+      animateAbout();
+      animatePrinciples();
+     
+      //update ref to indicate page has rendered previously
+      firstUpdate.current = false;
+      return;
     }
   }, []);
 
@@ -273,104 +381,29 @@ export default function Home(context) {
     }
   }, [bounce]);
 
-  //Use ref to determine if first render to prevent effect from firing
-  const firstUpdate = useRef(true);
+  //cause 'skill' items to bounce continuosly if window matches min-width
   useEffect(() => {
-    //determine if first render
-    if (firstUpdate.current) {
-      //animate header on first render
-      gsap.fromTo('h1', {y: -100}, {delay: .25, duration: .75, opacity: 1, y: 0} );
-      gsap.fromTo('header span', {y: -100}, {delay: 1, duration: .75, opacity: 1, y: 0} );
-  
-      //animation for 'about' section
-      let tl = gsap.timeline({
-        scrollTrigger:{trigger: '.line', endTrigger: ".line-2", scrub: 1}
+    if(mq.matches) {
+      timeline.fromTo('.skill', { y: -10 }, {
+        y: 15,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut",
+        duration: 1
       });
-      tl.from('.line', {
-        scaleX: 0,
-        transformOrigin: "left"
-      })
-      .from('.line-2', {
-        scaleX: 0,
-        transformOrigin: "right"
-      });
-
-      //animation for 'principles' section
-      gsap.to('.scroll-list', {
-        duration: 1,
-        stagger: .75,
-        scrollTrigger: {trigger: '#principles', scrub: true, pin: true},
-        opacity: 1
-      });
-
-      //update ref to indicate page has rendered previously
-      firstUpdate.current = false;
-      return;
     }
+  }, []);
 
+  //animate skills if one is clicked
+  useEffect(() => {
     // If the window size matches the media query
     if(mq.matches) {
-      console.log(gsap.globalTimeline.getChildren().filter(tween => tween.isActive()));
-      //animation for active skill
-      gsap.fromTo('.active', {
-        x: function(index, target, targets) {
-          const style = window.getComputedStyle(target);
-          const matrix = style.getPropertyValue('transform');
-          let fromX;
-
-          if(matrix && matrix !== 'none') {
-            //Get transform css property from target and extract 'x' value
-            let values = matrix.replace(/\s+/g, '');
-            values = values.split()[0].split('(')[1].split(')')[0].split(',');
-            fromX = values[4];
-          }
-          
-          return fromX;
-        },
-        y: function(index, target, targets) {
-          const style = window.getComputedStyle(target);
-          const matrix = style.getPropertyValue('transform');
-          let fromY;
-
-          if(matrix && matrix !== 'none') {
-            //Get transform css property from target and extract 'y' value
-            let values = matrix.replace(/\s+/g, '');
-            values = values.split()[0].split('(')[1].split(')')[0].split(',');
-            fromY = values[5];
-          }
-          return fromY;
-        }
-        },
-        {duration: 2,
-          x: function(index, target, targets) {
-            // get current 'x' position of element
-            const currentX = target.offsetLeft;
-            const targetWidth = target.offsetWidth;
-            return viewCenterX - currentX - (targetWidth/2);
-          },
-          y: 0
-        }
-      );
-      //animation for moving non selected skills to side
-      gsap.to('.to-left',
-      { duration: 2,
-        x: function(index, target, targets) {
-          const newX = target.offsetLeft;
-          return -newX;
-        },
-        y: function(index, target, targets) {
-          return index * 75;
-        }
-      }
-      );
-      //animation to revert skills to center
-      gsap.to('.inactive', {duration: 2, x: 0, y: 0});
+      animateActive();
+      animateLeft();
+      animateInactive();
     }
-
-    //animation to reveal skill list
-    gsap.to('.active ul', {delay: .75, duration: 2, opacity: 1, visibility: 'visible'} );
-    //animation for hiding skill list
-    gsap.to(['.to-left ul', '.inactive ul'], {duration: 1, opacity: 0} );
+    animateSkillList();
+    
   }, [activeId, viewCenterX]);
 
   // retrieve list of projects
