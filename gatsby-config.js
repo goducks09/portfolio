@@ -40,6 +40,7 @@ module.exports = {
                       text
                     }
                   }
+                  url
                   repositoryTopics(first: 5) {
                     nodes {
                         topic {

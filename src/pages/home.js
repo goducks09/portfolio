@@ -73,6 +73,16 @@ const SectionHeader = styled.h2`
   }
 `;
 
+const SectionSubHeader = styled.span`
+  font-size: 1.25rem;
+  margin-top: -15%;
+  width: 100%;
+
+  @media (max-width: 719px) {
+    font-size: 1rem;
+  }
+`;
+
 const Line = styled.div`
   background: linear-gradient(to right, #8ab4ff,#e492ff);
   height: 5px;
@@ -180,7 +190,7 @@ export default function Home(context) {
         </p>
       </Section>
 
-      <FlexSection id='principles' backgroundColor='linear-gradient(to bottom,#141414,#5291FF, #141414);'>
+      <FlexSection id='principles' backgroundColor='linear-gradient(to bottom, #141414, #48548d 40%, #48548d 60%, #141414);'>
         <SectionHeader>My Core Development Principles</SectionHeader>
 
         <ul id='principle-list'>
@@ -192,6 +202,7 @@ export default function Home(context) {
 
       <FlexSection ref={skills} backgroundColor='#141414'>
         <SectionHeader>Skills</SectionHeader>
+        <SectionSubHeader>(Give one a click!)</SectionSubHeader>
         <SkillList />
       </FlexSection>
 

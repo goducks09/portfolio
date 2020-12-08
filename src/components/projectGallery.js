@@ -8,9 +8,9 @@ const Container = styled.div`
         [row2-start] "first third" 1fr [row2-end]
         [row3-start] "first last" 1fr [row3-end]
         / auto auto;
-  height: 75vh;
+  height: 85vh;
   margin: auto;
-  padding: 15% 0;
+  padding: 5% 0;
   width: 80%;
 
   & .item-container {
@@ -21,7 +21,7 @@ const Container = styled.div`
     grid-area: first;
   }
 
-  @media (max-width: 1050px) {
+  @media (max-width: 1550px) {
     width: 100%;
   }
 
@@ -37,7 +37,7 @@ const Container = styled.div`
 `;
 
 const ProjectItem = styled.div`
-  background: no-repeat center 50%/cover url(${props => props.image});
+  background: no-repeat center 65%/cover url(${props => props.image});
   height: 100%;
   width: 100%;
 
@@ -73,7 +73,7 @@ export default function ProjectGallery(props) {
         <Container>
           {props.pages.map( project =>
               <div className='item-container' key={project.name}>
-                <AniLink cover to={project.name} bg='linear-gradient(to right,#F3F3F3,#E5E9EB)'>
+                <AniLink cover to={project.name} duration={.75} bg='linear-gradient(to right top, #f3f3f3, #e7e7e7, #dbdbdb, #d0d0d0, #c4c4c4, #c4c4c4, #c4c4c4, #c4c4c4, #d0d0d0, #dbdbdb, #e7e7e7, #f3f3f3)'>
                   <ProjectItem image={project.openGraphImageUrl}>
                       <h3>{project.description}</h3>
                   </ProjectItem>

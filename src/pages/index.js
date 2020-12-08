@@ -15,6 +15,7 @@ export const query = graphql`
                             description
                             name
                             openGraphImageUrl
+                            url
                         }
                     }
                 }

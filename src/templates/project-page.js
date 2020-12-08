@@ -92,6 +92,7 @@ const SectionHeader = styled.h2`
 `;
 
 export default function Page( context ) {
+  console.log(`page: ${context.pageContext.url}`); 
   return (
     <Layout>
       <ContentWrapper>
@@ -111,6 +112,14 @@ export default function Page( context ) {
           </div>
           <div className='main'>
             <ul>{context.pageContext.technologies.map(technology => <li key={technology.topic.name}>{technology.topic.name}</li>)}</ul>
+          </div>
+        </ProjectSection>
+        <ProjectSection>
+          <div className='side'>
+            <SectionHeader>View the Code</SectionHeader>
+          </div>
+          <div className='main'>
+            <p><a href={context.pageContext.url} target="_blank" rel="noreferrer">Github Repository</a></p>
           </div>
         </ProjectSection>
       </ContentWrapper>

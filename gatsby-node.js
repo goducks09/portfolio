@@ -16,6 +16,7 @@ exports.createPages = async ({ graphql, actions }) => {
                                 readme {
                                     text
                                 }
+                                url
                                 repositoryTopics {
                                     nodes {
                                         topic {
@@ -43,7 +44,8 @@ exports.createPages = async ({ graphql, actions }) => {
                 image: node.openGraphImageUrl,
                 overview: text,
                 technologies: node.repositoryTopics.nodes,
-                title: node.description
+                title: node.description,
+                url: node.url
             }
         });
     });
