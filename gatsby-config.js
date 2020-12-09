@@ -13,7 +13,9 @@ module.exports = {
   siteMetadata: {
     title: "Chris' Web Developer Portfolio",
     description:
-      "Chris' web developer portfolio showcases his programming skills in React, Javascript, Python, and more"
+      "Chris' web developer portfolio showcases his programming skills in React, Javascript, Python, and more",
+    image: '/seo-preview.jpg',
+    url: 'http://developedbychris.com'
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
