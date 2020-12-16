@@ -8,12 +8,13 @@ const ContentWrapper = styled.div`
   color: #333;
   display: flex;
   flex-direction: column;
+  font-size: 1.15rem;
   text-align: center;
 `;
 //added position and z-index
 const Title = styled.h1 `
   color: #222;
-  font-size: 3.75rem;
+  font-size: 4.75rem;
   position: relative;
   z-index: 1;
 
@@ -83,7 +84,7 @@ const ProjectSection = styled.section`
 
 const SectionHeader = styled.h2`
   color: #555;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 400;
 
   @media (max-width: 719px) {
