@@ -87,7 +87,7 @@ const GlobalStyle = createGlobalStyle`
       p {
         font-size: 1rem;
       }
-      
+
       #principle-list {
         flex-direction: column;
         margin: 0 10%;

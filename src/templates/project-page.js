@@ -10,6 +10,12 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   font-size: 1.15rem;
   text-align: center;
+
+  & p {
+    font-size: inherit;
+    margin: 1em;
+    padding: 0;
+  }
 `;
 //added position and z-index
 const Title = styled.h1 `
