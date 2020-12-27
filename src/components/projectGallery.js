@@ -39,6 +39,7 @@ const Container = styled.div`
 const ProjectItem = styled.div`
   background: no-repeat center 65%/cover url(${props => props.image});
   height: 100%;
+  transition: transform .5s;
   width: 100%;
 
   &:hover {

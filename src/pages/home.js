@@ -5,14 +5,18 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Layout from '../components/layout';
 import SkillList from '../components/skillList';
 import ProjectGallery from '../components/projectGallery';
-import LinkedinImg from '../images/linkedin-48.png';
+import DownArrow from '../images/down-arrow-48.png';
+import LinkedinImg from '../images/linkedin-64.png';
+import GitHubImg from '../images/gitHub-64.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Header = styled.header`
   background-color: #141414;
+  display: flex;
+  flex-direction: column;
   font-weight: bold;
-  height: 100vh;
+  height: 75vh;
   padding: 25vh 0 0 3.125rem;
 
   & h1 {
@@ -20,10 +24,18 @@ const Header = styled.header`
     opacity: 0;
   }
 
-  & span {
+  & p {
     display: block;
     font-size: 2rem;
+    padding: 0;
     opacity: 0;
+  }
+
+  & img {
+    align-self: center;
+    margin: auto 0 10%;
+    opacity: 0;
+    text-align: center;
   }
 `;
 
@@ -33,7 +45,6 @@ const Section = styled.section`
   text-align: center;
 `;
 
-//TODO make column always and wrap skills section in a container. Use min-height media query for sections that are too long on tablet
 const FlexSection = styled(Section)`
   align-items: center;
   display: flex;
@@ -42,7 +53,7 @@ const FlexSection = styled(Section)`
 
   & p {
     font-size: 1.5rem;
-    margin: 0 12.5%;
+    text-align: center;
   }
 
   @media (max-width: 650px) {
@@ -75,11 +86,12 @@ const SectionHeader = styled.h2`
 
 const SectionSubHeader = styled.span`
   font-size: 1.25rem;
-  margin-top: -15%;
+  margin-top: -25%;
   width: 100%;
 
   @media (max-width: 719px) {
     font-size: 1rem;
+    margin-top: -15%;
   }
 `;
 
@@ -118,7 +130,8 @@ export default function Home(context) {
   //animate header
   function animateHeader() {
     gsap.fromTo('h1', {y: -100}, {delay: .25, duration: .75, opacity: 1, y: 0} );
-    gsap.fromTo('header span', {y: -100}, {delay: 1, duration: .75, opacity: 1, y: 0} );
+    gsap.fromTo('header p', {y: -100}, {delay: 1, duration: .75, opacity: 1, y: 0} );
+    gsap.fromTo('header img', {y: -100}, {delay: 3.25, duration: 1.25, opacity: 1, y: 0} );
   }
 
   //animation for 'about' section
@@ -172,17 +185,18 @@ export default function Home(context) {
     <Layout>
       <Header>
         <h1>Hi, I'm Chris</h1>
-        <span>I create interactive websites and web apps</span>
+        <p>I create interactive websites and web apps</p>
+        <img src={DownArrow} alt="Down arrow"></img>
       </Header>
 
       <Section id='about' backgroundColor='#141414'>
         <SectionHeader>About Me</SectionHeader>
         <p>
-          I found my passion for programming a few years ago while working on automating processes at George Fox. From that point, I've loved learning different languages and working on various projects from websites to full-stack applications.
+          I found my passion for programming a few years ago while working on automating processes at George Fox University. From that point, I've loved learning different languages and working on various projects from websites to full-stack applications.
         </p>
         <Line className='line'></Line>
         <p>
-          My education and career background give me a unique advantage in understanding the business and customer side of projects in addition to the technology. I am especially skilled in attention to detail, problem solving, and being an effective communicator. I have extensive experience being an essential member of a team, while also being able to work independently.
+          Having a degree and career in business and customer service gives me a unique advantage in that I not only understand projects from the technical side, but also what is required from an administrative and client perspective. I am especially skilled in attention to detail, problem solving, and being an effective communicator. I have extensive experience being an essential member of a team, while also being able to work independently.
         </p>
         <Line className='line-2'></Line>
         <p>
@@ -214,11 +228,17 @@ export default function Home(context) {
 
       <FlexSection backgroundColor='#141414'>
         <SectionHeader>Connect With Me</SectionHeader>
-        <p>If you are looking for a full-time developer, or are a developer wanting to connect with industry peers, please message me through LinkedIn! I look forward to chatting with you!</p>
-        <a href="https://www.linkedin.com/in/chris-pulver/" target="_blank" rel="noopener noreferrer"><img src={LinkedinImg} alt="LinkedIn link"></img></a>
+        <div>
+          <p>You can view all my work by clicking on the Github link below.</p>
+          <p>If you are looking for a full-time developer or are a developer wanting to connect with industry peers, please message me through LinkedIn. I look forward to chatting with you!</p>
+        </div>
+        <div>
+          <a href="https://github.com/goducks09" target="_blank" rel="noopener noreferrer"><img className='logo-link' src={GitHubImg} alt="GitHub link"></img></a>
+          <a href="https://www.linkedin.com/in/chris-pulver/" target="_blank" rel="noopener noreferrer"><img className='logo-link' src={LinkedinImg} alt="LinkedIn link"></img></a>
+        </div>
       </FlexSection>
 
-      <footer><a target="_blank" rel="noreferrer" href="https://icons8.com/icon/pack/programming/nolan">Icons by icons8</a></footer>
+      <footer><a target="_blank" rel="noreferrer" href="https://icons8.com/icons/nolan">Icons by icons8</a></footer>
     </Layout>
   );
 }

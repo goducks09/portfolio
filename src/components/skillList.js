@@ -199,8 +199,8 @@ export default function SkillList() {
             <SkillContainer id='js' className={`${activeId ? updateClass('js'): 'inactive'} skill`} onClick={handleToggle} hoverColor='#f7eb13'>
             <img src={JSImg} alt="Javascript icon"></img>
             <ul>
-                <li>I am well-versed in JS ES6 syntax</li>
-                <li>I have a solid foundation in vanilla JS</li>
+                <li>Well-versed in JS ES6 syntax</li>
+                <li>Solid foundation in vanilla JS</li>
                 <li>Experience with jQuery, Vue, and React</li>
             </ul>
             </SkillContainer>
@@ -208,9 +208,9 @@ export default function SkillList() {
             <SkillContainer  id='react' className={`${activeId ? updateClass('react'): 'inactive'} skill`} onClick={handleToggle} hoverColor='#61dbfb'>
             <img src={ReactImg} alt="React icon"></img>
             <ul>
-                <li>React is the library/framework in which I have the highest proficiency</li>
-                <li>I've built multiple full stack applications using the MERN stack</li>
-                <li>I have experience with the latest React syntax including React Router and Hooks</li>
+                <li>Highest proficiency in React</li>
+                <li>Experience building multiple full stack applications using MERN</li>
+                <li>Experience with the latest React syntax including React Router and Hooks</li>
             </ul>
             </SkillContainer>
 
@@ -219,7 +219,7 @@ export default function SkillList() {
             <ul>
                 <li>Professional experience with Python (Flask)</li>
                 <li>Professional experience with PHP (Wordpress)</li>
-                <li>Full-stack experience using NodeJS, MongoDB, and Express in projects</li>
+                <li>Full-stack experience using NodeJS, MongoDB, and Express</li>
             </ul>
             </SkillContainer>
 

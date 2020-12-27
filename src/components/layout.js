@@ -37,7 +37,8 @@ const GlobalStyle = createGlobalStyle`
       color: white;
     }
 
-    #about p {
+    p {
+      font-size: 1.25rem;
       margin: 0;
       padding: 1.5rem 10%;
       text-align: left;
@@ -60,6 +61,12 @@ const GlobalStyle = createGlobalStyle`
       width: 75%;
     }
 
+    .logo-link {
+      height: 64px;
+      margin: 5px;
+      width: 64px;
+    }
+
     #error {
       text-align: center;
     }
@@ -77,6 +84,10 @@ const GlobalStyle = createGlobalStyle`
     }
 
     @media (max-width: 650px) {
+      p {
+        font-size: 1rem;
+      }
+      
       #principle-list {
         flex-direction: column;
         margin: 0 10%;
