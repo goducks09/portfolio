@@ -33,9 +33,16 @@ const Header = styled.header`
 
   & img {
     align-self: center;
-    margin: auto 0 10%;
+    margin: auto 0 5%;
     opacity: 0;
+    padding-right: 3.125rem;
     text-align: center;
+  }
+
+  @media (max-width: 1023px) {
+    & img {
+      margin: auto 0 12.5%;
+    }
   }
 `;
 
