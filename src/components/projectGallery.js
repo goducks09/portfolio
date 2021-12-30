@@ -5,10 +5,11 @@ import AniLink from "gatsby-plugin-transition-link/AniLink";
 const Container = styled.div`
   display: grid;
   grid: [row1-start] "first second" 1fr [row1-end]
-        [row2-start] "first third" 1fr [row2-end]
-        [row3-start] "first last" 1fr [row3-end]
+        [row2-start] "first second" 1fr [row2-end]
+        [row3-start] "third fourth" 1fr [row3-end]
+        [row4-start] "last last" 1fr [row4-end]
         / auto auto;
-  height: 85vh;
+  height: 100vh;
   margin: auto;
   padding: 5% 0;
   width: 80%;
@@ -21,7 +22,15 @@ const Container = styled.div`
     grid-area: first;
   }
 
-  @media (max-width: 1550px) {
+  & .item-container:nth-child(2) {
+    grid-area: second;
+  }
+
+  & .item-container:last-of-type {
+    grid-area: last;
+  }
+
+  @media (max-width: 1250px) {
     width: 100%;
   }
 
