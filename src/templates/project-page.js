@@ -24,8 +24,8 @@ const Title = styled.h1 `
   position: relative;
   z-index: 1;
 
-  @media (max-width: 491px) {
-    font-size: 2.75rem;
+  @media (max-width: 750px) {
+    font-size: 11vw;
   }
 `;
 
@@ -48,7 +48,7 @@ const ProjectSection = styled.section`
   text-align: left;
 
   &:first-of-type {
-    margin-top: 575px;
+    margin-top: 525px;
   }
 
   & .side {
@@ -82,7 +82,7 @@ const ProjectSection = styled.section`
 
     @media (max-width: 491px) {
       &:first-of-type {
-        margin-top: 375px;
+        margin-top: 350px;
       }
     }
   }
