@@ -1,6 +1,5 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
-import SEO from './seo.js';
 import CodeImg from '../images/code-background.jpg';
 import "fontsource-nunito/400.css";
 import "fontsource-nunito/700.css";
@@ -113,8 +112,7 @@ const GlobalStyle = createGlobalStyle`
 export default function Layout({ children }) {
   return (
     <>
-      <GlobalStyle/>
-      <SEO />
+      <GlobalStyle />
       {children}
     </>
   )

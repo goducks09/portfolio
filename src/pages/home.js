@@ -1,8 +1,9 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Layout from '../components/layout';
+import Seo from '../components/Seo';
 import SkillList from '../components/skillList';
 import ProjectGallery from '../components/projectGallery';
 import DownArrow from '../images/down-arrow-48.png';
@@ -128,6 +129,8 @@ const RotatingLI = styled.li`
   }
 `;
 
+export const Head = () => <Seo />;
+
 export default function Home(context) {
   // Use ref to access skills section once DOM is available
   const skills = useRef(true);
@@ -136,46 +139,46 @@ export default function Home(context) {
 
   //animate header
   function animateHeader() {
-    gsap.fromTo('h1', {y: -100}, {delay: .25, duration: .75, opacity: 1, y: 0} );
-    gsap.fromTo('header p', {y: -100}, {delay: 1, duration: .75, opacity: 1, y: 0} );
-    gsap.fromTo('header img', {y: -100}, {delay: 3.25, duration: 1.25, opacity: 1, y: 0} );
+    gsap.fromTo('h1', { y: -100 }, { delay: .25, duration: .75, opacity: 1, y: 0 });
+    gsap.fromTo('header p', { y: -100 }, { delay: 1, duration: .75, opacity: 1, y: 0 });
+    gsap.fromTo('header img', { y: -100 }, { delay: 3.25, duration: 1.25, opacity: 1, y: 0 });
   }
 
   //animation for 'about' section
   function animateAbout() {
     let tl = gsap.timeline({
-      scrollTrigger:{trigger: '.line', endTrigger: ".line-2", scrub: 1}
+      scrollTrigger: { trigger: '.line', endTrigger: ".line-2", scrub: 1 }
     });
     tl.from('.line', {
       scaleX: 0,
       transformOrigin: "left"
     })
-    .from('.line-2', {
-      scaleX: 0,
-      transformOrigin: "right"
-    });
+      .from('.line-2', {
+        scaleX: 0,
+        transformOrigin: "right"
+      });
   }
 
   //animation for 'principles' section
   function animatePrinciples() {
-     gsap.to('.scroll-list', {
+    gsap.to('.scroll-list', {
       duration: 1,
       stagger: .75,
-      scrollTrigger: {trigger: '#principles', scrub: true, pin: true},
+      scrollTrigger: { trigger: '#principles', scrub: true, pin: true },
       opacity: 1
     });
   }
 
   //Use ref to determine if first render to prevent effect from firing
   const firstUpdate = useRef(true);
-  
+
   useEffect(() => {
     //determine if first render
     if (firstUpdate.current) {
       animateHeader();
       animateAbout();
       animatePrinciples();
-     
+
       //update ref to indicate page has rendered previously
       firstUpdate.current = false;
       return;
@@ -184,10 +187,10 @@ export default function Home(context) {
 
   // retrieve list of projects
   let pages = [];
-  if(context.data) {
+  if (context.data) {
     pages = context.data.githubData.data.user.pinnedItems.nodes;
   }
-  
+
   return (
     <Layout>
       <Header>
@@ -230,7 +233,7 @@ export default function Home(context) {
       <Section backgroundColor='#F3F3F3'>
         <div className='hero'></div>
         <SectionHeader className='hero-header'>View My Work</SectionHeader>
-        <ProjectGallery pages={pages}/>
+        <ProjectGallery pages={pages} />
       </Section>
 
       <FlexSection backgroundColor='#141414'>

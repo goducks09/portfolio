@@ -1,6 +1,6 @@
 import React from "react";
+import { Link } from "gatsby";
 import styled from 'styled-components';
-import AniLink from "gatsby-plugin-transition-link/AniLink";
 
 const Container = styled.div`
   display: grid;
@@ -79,18 +79,18 @@ const ProjectItem = styled.div`
 `;
 
 export default function ProjectGallery(props) {
-    return (
-        <Container>
-          {props.pages.map( project =>
-              <div className='item-container' key={project.name}>
-                <AniLink cover to={project.name} duration={.75} bg='linear-gradient(to right top, #f3f3f3, #e7e7e7, #dbdbdb, #d0d0d0, #c4c4c4, #c4c4c4, #c4c4c4, #c4c4c4, #d0d0d0, #dbdbdb, #e7e7e7, #f3f3f3)'>
-                  <ProjectItem image={project.openGraphImageUrl}>
-                      <h3>{project.description}</h3>
-                  </ProjectItem>
-                </AniLink>
-              </div>
-            )
-          }
-        </Container>
-    );
+  return (
+    <Container>
+      {props.pages.map(project =>
+        <div className='item-container' key={project.name}>
+          <Link to={project.name}>
+            <ProjectItem image={project.openGraphImageUrl}>
+              <h3>{project.description}</h3>
+            </ProjectItem>
+          </Link>
+        </div>
+      )
+      }
+    </Container>
+  );
 }

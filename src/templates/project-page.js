@@ -1,7 +1,8 @@
 import React from "react";
-import ReactMarkdown from 'react-markdown/with-html';
+import Markdown from 'react-markdown';
 import styled from 'styled-components';
 import Layout from "../components/layout";
+import Seo from '../components/Seo';
 
 const ContentWrapper = styled.div`
   background: #333;
@@ -18,7 +19,7 @@ const ContentWrapper = styled.div`
   }
 `;
 //added position and z-index
-const Title = styled.h1 `
+const Title = styled.h1`
   color: #222;
   font-size: 4.75rem;
   position: relative;
@@ -98,19 +99,20 @@ const SectionHeader = styled.h2`
   }
 `;
 
-export default function Page( context ) {
-  console.log(`page: ${context.pageContext.url}`); 
+export const Head = () => <Seo />;
+
+export default function Page(context) {
   return (
     <Layout>
       <ContentWrapper>
         <Title>{context.pageContext.title}</Title>
-        <MainImg  style={{backgroundImage: `url(${context.pageContext.image})`}}></MainImg>
+        <MainImg style={{ backgroundImage: `url(${context.pageContext.image})` }}></MainImg>
         <ProjectSection>
           <div className='side'>
             <SectionHeader>Project Overview</SectionHeader>
           </div>
           <div className='main'>
-            <ReactMarkdown source={context.pageContext.overview} escapeHtml={false} />
+            <Markdown>{context.pageContext.overview}</Markdown>
           </div>
         </ProjectSection>
         <ProjectSection>
