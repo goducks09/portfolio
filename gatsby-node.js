@@ -1,5 +1,7 @@
+const fs = require('fs');
+const envPath = `.env.${process.env.NODE_ENV}`;
 require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
+  path: fs.existsSync(envPath) ? envPath : '.env',
 });
 const path = require(`path`);
 const sanitizeHtml = require('sanitize-html');
@@ -66,6 +68,44 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => 
   });
 };
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  createTypes(`
+    type GithubData implements Node {
+      data: GithubDataData
+    }
+    type GithubDataData {
+      user: GithubDataUser
+    }
+    type GithubDataUser {
+      pinnedItems: GithubDataPinnedItems
+    }
+    type GithubDataPinnedItems {
+      nodes: [GithubDataRepository]
+    }
+    type GithubDataRepository {
+      description: String
+      name: String
+      openGraphImageUrl: String
+      url: String
+      readme: GithubDataReadme
+      repositoryTopics: GithubDataRepositoryTopics
+    }
+    type GithubDataReadme {
+      text: String
+    }
+    type GithubDataRepositoryTopics {
+      nodes: [GithubDataTopicNode]
+    }
+    type GithubDataTopicNode {
+      topic: GithubDataTopic
+    }
+    type GithubDataTopic {
+      name: String
+    }
+  `);
+};
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const result = await graphql(`
@@ -97,8 +137,14 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  result.data.githubData.data.user.pinnedItems.nodes.forEach(node => {
-    let text = sanitizeHtml(node.readme.text);
+  const nodes = result.data?.githubData?.data?.user?.pinnedItems?.nodes;
+  if (!nodes || nodes.length === 0) {
+    console.warn("No GitHub pinned items found. Skipping project page creation.");
+    return;
+  }
+
+  nodes.forEach(node => {
+    let text = sanitizeHtml(node.readme?.text || '');
     createPage({
       path: node.name,
       component: path.resolve(`./src/templates/project-page.js`),

@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Chris Pulver | Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #080d18;
+    --navy-mid: #0f1724;
+    --gold: #c9a96e;
+    --gold-dim: rgba(201,169,110,0.15);
+    --muted: #7a8699;
+    --white: #f4f2ee;
+    --line: rgba(255,255,255,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 16px; scroll-behavior: smooth; }
+
+  body { overflow-x: hidden; }
+
+  /* ─── GRAIN OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* ─── TYPOGRAPHY ─── */
+  h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 0 1rem;
+  }
+
+  #hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent, var(--navy));
+    pointer-events: none;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(140px, 28vw, 380px);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.85;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+    user-select: none;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-size: clamp(4rem, 12vw, 11rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    background: linear-gradient(180deg, #ffffff 20%, rgba(255,255,255,0.2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1s ease forwards 0.4s;
+  }
+
+  .hero-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 1.75rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards 0.9s;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1.6s;
+  }
+
+  .hero-scroll span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(0.85); }
+  }
+
+  /* ─── LAYOUT ─── */
+  .main-wrap {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem 12rem;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.1) 5%, rgba(255,255,255,0.1) 95%, transparent 100%);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  #timeline-node {
+    position: fixed;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 6px rgba(201,169,110,0.12), 0 0 20px rgba(201,169,110,0.25);
+    pointer-events: none;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.45s ease;
+  }
+
+  /* ─── H2 WRAP + UNDERLINE ─── */
+  .h2-wrap {
+    display: inline-block;
+    position: relative;
+  }
+
+  /* Block-level variant for left-aligned full-width headings */
+  .h2-wrap.block { display: block; }
+
+  .section-underline {
+    height: 3px;
+    background: linear-gradient(to right, var(--gold), rgba(201,169,110,0.35));
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-top: 0.6rem;
+  }
+
+  section.in-view .section-underline {
+    transform: scaleX(1);
+  }
+
+  /* h2 subtle lift when section is active */
+  .h2-wrap h2 {
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
+                letter-spacing 0.55s ease 0.05s;
+  }
+
+  section.in-view .h2-wrap h2 {
+    transform: translateY(-4px);
+    letter-spacing: 0.01em;
+  }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    position: relative;
+    padding: 8rem 0;
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.75rem;
+    display: block;
+  }
+
+  /* ─── ABOUT ─── */
+  #about .section-heading {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--white);
+  }
+
+  #about .section-body {
+    margin-top: 1.5rem;
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 1rem;
+    font-weight: 300;
+  }
+
+  #about .section-body + .section-body {
+    margin-top: 1rem;
+  }
+
+  /* ─── PRINCIPLES ─── */
+  #principles {
+    text-align: center;
+  }
+
+  #principles .principles-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  #principles h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    max-width: 700px;
+    margin: 0 auto 5rem;
+  }
+
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .principle-card {
+    background: var(--navy-mid);
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .principle-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(201,169,110,0.12);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .principle-card p {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* ══ Card 1 — Python terminal ══ */
+  .pc1-prose {
+    transition: opacity 0.32s ease, transform 0.32s ease;
+  }
+  #pc1:hover .pc1-prose {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  .pc1-terminal {
+    position: absolute;
+    inset: 0;
+    padding: 1.25rem 1.5rem;
+    background: #0d1117;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.32s ease, transform 0.32s ease;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+  }
+  #pc1:hover .pc1-terminal {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-bottom: 0.65rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+  .t-dot { width: 9px; height: 9px; border-radius: 50%; }
+  .t-dot-r { background: #ff5f57; }
+  .t-dot-y { background: #ffbd2e; }
+  .t-dot-g { background: #28ca41; }
+  .terminal-fname {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.22);
+    margin-left: 6px;
+    letter-spacing: 0.04em;
+  }
+  .terminal-pre {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    line-height: 1.65;
+    margin: 0;
+    white-space: pre;
+    flex: 1;
+    overflow: hidden;
+    color: rgba(201,169,110,0.85);
+  }
+  .t-cursor {
+    display: inline-block;
+    width: 6px; height: 0.9em;
+    background: var(--gold);
+    opacity: 0.75;
+    vertical-align: text-bottom;
+    animation: tblink 0.9s step-end infinite;
+  }
+  @keyframes tblink { 0%,100%{opacity:0.75} 50%{opacity:0} }
+  .t-cm  { color: #4a5568; }
+  .t-kw  { color: #d2a8ff; }
+  .t-fn  { color: #e2c08d; }
+  .t-st  { color: #a5d6ff; }
+  .t-bo  { color: #79c0ff; }
+  .t-pu  { color: #c9d1d9; }
+
+  /* ══ Card 2 — Responsive morph ══ */
+  .pc2-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    opacity: 0;
+    margin-bottom: 0.65rem;
+    transition: opacity 0.3s ease, color 0.4s ease;
+  }
+  #pc2:hover .pc2-label { opacity: 1; }
+  #pc2.p2-mobile .pc2-label { color: #7ee787; }
+  .pc2-inner {
+    transition:
+      max-width 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      border-right 0.75s ease;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .pc2-inner p {
+    transition:
+      font-size 0.55s ease,
+      line-height 0.55s ease;
+  }
+  #pc2.p2-tablet .pc2-inner { max-width: 74%; border-right: 2px solid rgba(201,169,110,0.12); }
+  #pc2.p2-mobile .pc2-inner { max-width: 52%; border-right: 2px solid rgba(126,231,135,0.18); }
+  #pc2.p2-mobile .pc2-inner p { font-size: 0.88rem; line-height: 1.45; }
+
+  /* ══ Card 3 — Glow + parallax + reveal ══ */
+  #pc3 {
+    transition:
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.45s ease,
+      background 0.45s ease;
+  }
+  #pc3:hover {
+    transform: translateY(-7px);
+    box-shadow:
+      0 24px 64px rgba(0,0,0,0.6),
+      inset 0 0 0 1px rgba(201,169,110,0.38);
+    background: linear-gradient(145deg, rgba(201,169,110,0.07) 0%, var(--navy-mid) 55%);
+  }
+  .pc3-glow {
+    position: absolute;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,169,110,0.2) 0%, transparent 65%);
+    pointer-events: none;
+    transform: translate(-50%,-50%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    will-change: left, top;
+    left: 50%; top: 50%;
+  }
+  #pc3:hover .pc3-glow { opacity: 1; }
+  .pc3-num {
+    display: inline-block;
+    transition: transform 0.12s linear;
+    will-change: transform;
+  }
+  .pc3-reveal {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease 0.18s, transform 0.4s ease 0.18s;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(201,169,110,0.14);
+  }
+  #pc3:hover .pc3-reveal {
+    opacity: 0.82;
+    transform: translateY(0);
+  }
+
+  /* ─── SKILLS ─── */
+  #skills .skills-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  #skills h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 0.5rem;
+  }
+
+  #skills .skills-sub {
+    color: var(--muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .skill-card {
+    background: var(--navy-mid);
+    padding: 2.5rem;
+    transition: background 0.3s ease;
+    cursor: default;
+  }
+
+  .skill-card:hover { background: rgba(201,169,110,0.04); }
+
+  .skill-card-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .skill-icon {
+    width: 44px; height: 44px;
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .skill-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .skill-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .skill-card li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.45;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .skill-card li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 0.75rem;
+  }
+
+  /* ─── PROJECTS ─── */
+  #projects {
+    padding-top: 8rem;
+  }
+
+  #projects .projects-header {
+    margin-bottom: 3rem;
+  }
+
+  #projects h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .projects-note {
+    color: var(--muted);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--navy-mid);
+    border: 1px solid var(--line);
+  }
+
+  .project-card-img {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.7s ease;
+  }
+
+  .project-card:hover .project-card-img { transform: scale(1.07); }
+
+  .project-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(8,13,24,0.92) 0%, rgba(8,13,24,0.4) 60%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.75rem;
+    transition: background 0.4s ease;
+  }
+
+  .project-card:hover .project-card-overlay {
+    background: linear-gradient(to top, rgba(8,13,24,0.97) 0%, rgba(8,13,24,0.6) 60%, rgba(8,13,24,0.15) 100%);
+  }
+
+  .project-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+  }
+
+  .project-card-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .project-card-link {
+    margin-top: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .project-card:hover .project-card-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-placeholder-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project-placeholder-bg svg {
+    width: 60%;
+    opacity: 0.03;
+  }
+
+  /* ─── CONNECT ─── */
+  #connect {
+    text-align: center;
+    padding: 8rem 0 4rem;
+  }
+
+  #connect h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1.5rem;
+  }
+
+  #connect .connect-body {
+    max-width: 520px;
+    margin: 0 auto 3rem;
+    color: var(--muted);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .connect-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .connect-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 2rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    transition: all 0.3s ease;
+  }
+
+  .connect-btn:hover {
+    background: var(--gold-dim);
+    border-color: rgba(201,169,110,0.4);
+    color: var(--gold);
+  }
+
+  .connect-btn svg {
+    width: 16px; height: 16px;
+    flex-shrink: 0;
+    fill: currentColor;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(122,134,153,0.4);
+  }
+
+  /* ─── FLOATING DOCK ─── */
+  .dock {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.6rem 1rem;
+    background: rgba(10,14,26,0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.09);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+
+  .dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 0.5rem 0.75rem;
+    color: var(--muted);
+    transition: color 0.2s ease, background 0.2s ease;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .dock-item:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+  .dock-item.active { color: var(--gold); }
+
+  .dock-item svg {
+    width: 18px; height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .dock-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255,255,255,0.08);
+    margin: 0 0.25rem;
+  }
+
+  /* ─── REVEAL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .section-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .section-grid > :last-child:not(.timeline-node) { display: none; }
+    .principles-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .project-grid { grid-template-columns: 1fr; }
+    .timeline-line, #timeline-node { display: none; }
+    .dock-item span { display: none; }
+    .dock-item { padding: 0.5rem 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section id="hero">
+  <div class="hero-bg-text" aria-hidden="true">CHRIS</div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Developer &amp; Web Creator</p>
+    <h1 class="hero-name">Chris<br/>Pulver</h1>
+    <p class="hero-title">I create interactive websites &amp; web apps</p>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<div class="main-wrap">
+  <div class="timeline-line" aria-hidden="true"></div>
+  <div id="timeline-node" aria-hidden="true"></div>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="section" id="about">
+    <div class="section-grid">
+      <div class="reveal">
+        <span class="section-label">About</span>
+        <div class="h2-wrap block">
+          <h2 class="section-heading">
+            Bridging the gap between engineering and the people who use it.
+          </h2>
+          <div class="section-underline"></div>
+        </div>
+        <p class="section-body">
+          I found my passion for programming a few years ago while automating processes at George Fox University — and I've been hooked ever since. Since then I've been learning different languages and building projects ranging from websites to full-stack applications.
+        </p>
+        <p class="section-body">
+          Having a background in business and customer service gives me a unique edge: I understand projects from both the technical side and the administrative and client perspective. I'm especially strong in attention to detail, problem solving, and communication — and I've always thrived both as part of a team and working independently.
+        </p>
+        <p class="section-body">
+          Outside of work you'll find me deep into a variety of music, movies, and gaming. A self-described life-long learner.
+        </p>
+      </div>
+      <div class="reveal reveal-delay-2" style="display: flex; align-items: center; justify-content: center;">
+        <!-- Decorative typography block -->
+        <div style="border: 1px solid var(--line); padding: 3rem 2.5rem; max-width: 320px;">
+          <p style="font-family:'Playfair Display',serif; font-size:1.1rem; font-style:italic; color:var(--muted); line-height:1.8; font-weight:400;">"A degree in business, a mind for code, and an obsession with building things that actually work."</p>
+          <div style="width:40px; height:1px; background:var(--gold); margin-top:1.5rem; opacity:0.6;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PRINCIPLES ─── -->
+  <section class="section" id="principles">
+    <div class="reveal">
+      <p class="principles-eyebrow">How I Work</p>
+      <div class="h2-wrap">
+        <h2>My Core Development Principles</h2>
+        <div class="section-underline"></div>
+      </div>
+    </div>
+    <div class="principles-grid reveal reveal-delay-1">
+
+      <!-- Card 1 — Python compile -->
+      <div class="principle-card" id="pc1">
+        <div class="pc1-prose">
+          <div class="principle-num">01</div>
+          <p>Write clean, maintainable code that the next developer — or future me — can understand at a glance.</p>
+        </div>
+        <div class="pc1-terminal" aria-hidden="true">
+          <div class="terminal-bar">
+            <span class="t-dot t-dot-r"></span>
+            <span class="t-dot t-dot-y"></span>
+            <span class="t-dot t-dot-g"></span>
+            <span class="terminal-fname">principle_01.py</span>
+          </div>
+          <pre class="terminal-pre" id="pc1-typed"></pre>
+        </div>
+      </div>
+
+      <!-- Card 2 — Responsive morph -->
+      <div class="principle-card" id="pc2">
+        <div class="principle-num">02</div>
+        <div class="pc2-label" id="pc2-label">desktop</div>
+        <div class="pc2-inner">
+          <p>Responsive design that is cross-browser compatible — every user deserves the same quality experience.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 — Glow + parallax + reveal -->
+      <div class="principle-card" id="pc3">
+        <div class="pc3-glow" aria-hidden="true"></div>
+        <div class="principle-num pc3-num">03</div>
+        <p>Create dynamic sites that keep users engaged — because great code is invisible, but great UX isn't.</p>
+        <div class="pc3-reveal" aria-hidden="true">Interactivity with intention</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SKILLS ─── -->
+  <section class="section" id="skills">
+    <div class="skills-header reveal">
+      <span class="section-label" style="display:block; text-align:center;">Expertise</span>
+      <div class="h2-wrap">
+        <h2>Skills</h2>
+        <div class="section-underline"></div>
+      </div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-card-top">
+          <div class="skill-icon">Py</div>
+          <div class="skill-name">Backend Engineering</div>
+        </div>
+        <ul>
+          <li>Professional experience building backend systems with Python and Flask</li>
+          <li>REST API development and third-party integrations</li>
+          <li>Experience working across full-stack application architecture</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-card-top">
+          <div class="skill-icon">Re</div>
+          <div class="skill-name">Frontend Development</div>
+        </div>
+        <ul>
+          <li>Experience with React and modern JavaScript</li>
+          <li>Responsive UI development with accessibility in mind</li>
+          <li>Interactive interfaces using modern CSS and animation</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-card-top">
+          <div class="skill-icon">DB</div>
+          <div class="skill-name">Data &amp; Infrastructure</div>
+        </div>
+        <ul>
+          <li>PostgreSQL and relational database design</li>
+          <li>Docker-based development workflows and CI/CD exposure</li>
+          <li>Git version control and collaborative development practices</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal reveal-delay-3">
+        <div class="skill-card-top">
+          <div class="skill-icon">AI</div>
+          <div class="skill-name">AI &amp; Emerging Tech</div>
+        </div>
+        <ul>
+          <li>Experience using Google Antigravity and Claude Code for AI-assisted development</li>
+          <li>Hands-on experimentation with LangChain and Hugging Face for RAG workflows and model fine-tuning</li>
+          <li>Exposure to Google Cloud Platform environments</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROJECTS ─── -->
+  <section class="section" id="projects">
+    <div class="projects-header reveal">
+      <span class="section-label">Work</span>
+      <div class="h2-wrap block">
+        <h2>Projects</h2>
+        <div class="section-underline"></div>
+      </div>
+      <p class="projects-note">Pinned repositories pulled dynamically from GitHub.</p>
+    </div>
+    <div class="project-grid">
+
+      <!-- Project Card 1 — placeholder structure matching GitHub API data -->
+      <div class="project-card reveal">
+        <div class="project-placeholder-bg">
+          <svg viewBox="0 0 100 60" fill="white" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="80" height="40" rx="3" fill="none" stroke="white" stroke-width="2"/><line x1="10" y1="22" x2="90" y2="22" stroke="white" stroke-width="2"/><rect x="16" y="28" width="20" height="3" rx="1" fill="white"/><rect x="16" y="34" width="35" height="3" rx="1" fill="white"/><rect x="16" y="40" width="28" height="3" rx="1" fill="white"/></svg>
+        </div>
+        <div class="project-card-img" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80&auto=format');"></div>
+        <div class="project-card-overlay">
+          <div class="project-card-name">Media Library App</div>
+          <div class="project-card-desc">A full-stack movie cataloging solution built with the MERN stack. Features movie search, personal collection management, and a randomizer.</div>
+          <div class="project-card-link">View on GitHub →</div>
+        </div>
+      </div>
+
+      <!-- Project Card 2 -->
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-placeholder-bg">
+          <svg viewBox="0 0 100 60" fill="white" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="30" r="20" fill="none" stroke="white" stroke-width="2"/><line x1="50" y1="10" x2="50" y2="50" stroke="white" stroke-width="1.5"/><line x1="30" y1="30" x2="70" y2="30" stroke="white" stroke-width="1.5"/><ellipse cx="50" cy="30" rx="20" ry="10" fill="none" stroke="white" stroke-width="1.5"/></svg>
+        </div>
+        <div class="project-card-img" style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80&auto=format');"></div>
+        <div class="project-card-overlay">
+          <div class="project-card-name">Portfolio — This Site</div>
+          <div class="project-card-desc">Built with Gatsby and GreenSock (GSAP). Leverages ScrollTrigger for scroll-based animations and the GitHub API via GraphQL for dynamic project data.</div>
+          <div class="project-card-link">View on GitHub →</div>
+        </div>
+      </div>
+
+      <!-- Additional cards render from GitHub pinned items -->
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-placeholder-bg">
+          <svg viewBox="0 0 100 60" fill="white" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="15" width="25" height="30" rx="2" fill="none" stroke="white" stroke-width="2"/><rect x="55" y="20" width="25" height="25" rx="2" fill="none" stroke="white" stroke-width="2"/><line x1="45" y1="30" x2="55" y2="30" stroke="white" stroke-width="1.5"/></svg>
+        </div>
+        <div class="project-card-img" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format');"></div>
+        <div class="project-card-overlay">
+          <div class="project-card-name">Project Three</div>
+          <div class="project-card-desc">Pinned from GitHub — description pulled via GraphQL API at build time.</div>
+          <div class="project-card-link">View on GitHub →</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-placeholder-bg">
+          <svg viewBox="0 0 100 60" fill="white" xmlns="http://www.w3.org/2000/svg"><polygon points="50,10 90,50 10,50" fill="none" stroke="white" stroke-width="2"/><line x1="50" y1="20" x2="50" y2="42" stroke="white" stroke-width="1.5"/><circle cx="50" cy="46" r="2" fill="white"/></svg>
+        </div>
+        <div class="project-card-img" style="background-image: url('https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80&auto=format');"></div>
+        <div class="project-card-overlay">
+          <div class="project-card-name">Project Four</div>
+          <div class="project-card-desc">Pinned from GitHub — description pulled via GraphQL API at build time.</div>
+          <div class="project-card-link">View on GitHub →</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="reveal" style="margin-top: 2.5rem; text-align: center;">
+      <a href="https://github.com/goducks09" target="_blank" rel="noopener noreferrer" style="font-family:'DM Mono',monospace; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); transition:color 0.2s ease;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">View all repositories on GitHub →</a>
+    </div>
+  </section>
+
+  <!-- ─── CONNECT ─── -->
+  <section class="section" id="connect">
+    <div style="width:1px; height:80px; background:linear-gradient(to bottom, var(--line), transparent); margin:0 auto 3rem;"></div>
+    <div class="reveal">
+      <span class="section-label" style="text-align:center; display:block;">Let's Talk</span>
+      <div class="h2-wrap" style="display:block; text-align:center;">
+        <h2 style="font-size:clamp(2rem,5vw,3.5rem); display:inline-block;">Connect With Me</h2>
+        <div class="section-underline" style="transform-origin:center;"></div>
+      </div>
+      <p class="connect-body">
+        Looking to hire a full-time developer, or a developer wanting to connect with peers? I'd love to hear from you. You can find all of my work on GitHub, or reach me directly through LinkedIn.
+      </p>
+      <div class="connect-links">
+        <a href="https://github.com/goducks09" target="_blank" rel="noopener noreferrer" class="connect-btn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/chris-pulver/" target="_blank" rel="noopener noreferrer" class="connect-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /main-wrap -->
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <p>© 2024 Chris Pulver — All Rights Reserved</p>
+  <p style="margin-top:0.5rem;">
+    <a href="https://icons8.com/icons/nolan" target="_blank" rel="noreferrer" style="opacity:0.5; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">Icons by Icons8</a>
+  </p>
+</footer>
+
+<!-- ═══════════════════ DOCK ═══════════════════ -->
+<nav class="dock" aria-label="Site navigation">
+  <a class="dock-item" href="#hero" aria-label="Hero">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+    <span>Home</span>
+  </a>
+  <a class="dock-item" href="#about" aria-label="About">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    <span>About</span>
+  </a>
+  <div class="dock-divider" aria-hidden="true"></div>
+  <a class="dock-item" href="#skills" aria-label="Skills">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    <span>Skills</span>
+  </a>
+  <a class="dock-item" href="#projects" aria-label="Projects">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    <span>Work</span>
+  </a>
+  <div class="dock-divider" aria-hidden="true"></div>
+  <a class="dock-item" href="#connect" aria-label="Connect">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z"/></svg>
+    <span>Connect</span>
+  </a>
+  <a class="dock-item" href="https://github.com/goducks09" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg>
+    <span>GitHub</span>
+  </a>
+</nav>
+
+<script>
+  // ── Reveal on scroll ──
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // ── Active dock link ──
+  const sections = document.querySelectorAll('section[id]');
+  const dockLinks = document.querySelectorAll('.dock-item[href^="#"]');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.getAttribute('id');
+        dockLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === `#${id}`);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => sectionObserver.observe(s));
+
+  // ── Scrolling timeline node + section underlines ──
+  const timelineNode = document.getElementById('timeline-node');
+  const mainWrap = document.querySelector('.main-wrap');
+  // Only sections that live inside the main-wrap timeline
+  const timelineSections = mainWrap.querySelectorAll('section[id]');
+
+  function updateTimelineNode() {
+    const rect = mainWrap.getBoundingClientRect();
+    const lineX = rect.left + rect.width / 2;
+    const viewMid = window.innerHeight / 2;
+    const clampedY = Math.max(rect.top + 8, Math.min(rect.bottom - 8, viewMid));
+
+    timelineNode.style.left = lineX + 'px';
+    timelineNode.style.top  = clampedY + 'px';
+
+    // Check if the dot's position falls inside any section
+    let dotInSection = false;
+    timelineSections.forEach(section => {
+      const sr = section.getBoundingClientRect();
+      const inside = sr.top < viewMid && sr.bottom > viewMid;
+      section.classList.toggle('in-view', inside);
+      if (inside) dotInSection = true;
+    });
+
+    // Fade dot out when it's inside a section, back in when between sections
+    timelineNode.style.opacity = dotInSection ? '0' : '1';
+  }
+
+  window.addEventListener('scroll', updateTimelineNode, { passive: true });
+  window.addEventListener('resize', updateTimelineNode);
+  updateTimelineNode();
+
+  // ════════════════════════════════════════════
+  // CARD 1 — Python compile typewriter
+  // ════════════════════════════════════════════
+  (function() {
+    const card  = document.getElementById('pc1');
+    const pre   = document.getElementById('pc1-typed');
+
+    const RAW = `# principle_01.py\n\ndef write_code(dev):\n    """Clean. Readable.\n    Maintainable."""\n    return {\n        "readable":    True,\n        "future_safe": True,\n        "next_dev":    "grateful"\n    }`;
+
+    const HIGHLIGHTED =
+      '<span class="t-cm"># principle_01.py</span>\n\n' +
+      '<span class="t-kw">def</span> <span class="t-fn">write_code</span><span class="t-pu">(</span>dev<span class="t-pu">):</span>\n' +
+      '    <span class="t-st">"""Clean. Readable.\n    Maintainable."""</span>\n' +
+      '    <span class="t-kw">return</span> <span class="t-pu">{</span>\n' +
+      '        <span class="t-st">"readable"</span>:    <span class="t-bo">True</span>,\n' +
+      '        <span class="t-st">"future_safe"</span>: <span class="t-bo">True</span>,\n' +
+      '        <span class="t-st">"next_dev"</span>:    <span class="t-st">"grateful"</span>\n' +
+      '    <span class="t-pu">}</span>';
+
+    let timer = null, compileTimer = null, idx = 0;
+    let cursor;
+
+    function startTyping() {
+      clearInterval(timer); clearTimeout(compileTimer);
+      idx = 0;
+      pre.textContent = '';
+      pre.style.opacity = '1';
+      cursor = document.createElement('span');
+      cursor.className = 't-cursor';
+      pre.appendChild(cursor);
+
+      timer = setInterval(() => {
+        if (idx < RAW.length) {
+          pre.insertBefore(document.createTextNode(RAW[idx]), cursor);
+          idx++;
+        } else {
+          clearInterval(timer);
+          // compile phase — brief dim then syntax colors appear
+          compileTimer = setTimeout(() => {
+            pre.style.transition = 'opacity 0.12s ease';
+            pre.style.opacity = '0.2';
+            setTimeout(() => {
+              pre.innerHTML = HIGHLIGHTED;
+              pre.style.opacity = '1';
+            }, 130);
+          }, 360);
+        }
+      }, 18);
+    }
+
+    function stopTyping() {
+      clearInterval(timer); clearTimeout(compileTimer);
+      pre.textContent = '';
+      pre.style.transition = '';
+      pre.style.opacity = '1';
+    }
+
+    card.addEventListener('mouseenter', startTyping);
+    card.addEventListener('mouseleave', stopTyping);
+  })();
+
+  // ════════════════════════════════════════════
+  // CARD 2 — Responsive layout morph
+  // ════════════════════════════════════════════
+  (function() {
+    const card  = document.getElementById('pc2');
+    const label = document.getElementById('pc2-label');
+    const STATES = ['desktop', 'tablet', 'mobile'];
+    const CLASSES = ['', 'p2-tablet', 'p2-mobile'];
+    let timer = null, si = 0;
+
+    function applyState(i) {
+      card.classList.remove('p2-tablet', 'p2-mobile');
+      if (CLASSES[i]) card.classList.add(CLASSES[i]);
+      label.textContent = STATES[i];
+    }
+
+    card.addEventListener('mouseenter', () => {
+      si = 0; applyState(0);
+      timer = setInterval(() => { si = (si + 1) % STATES.length; applyState(si); }, 1100);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      clearInterval(timer);
+      card.classList.remove('p2-tablet', 'p2-mobile');
+      label.textContent = 'desktop';
+    });
+  })();
+
+  // ════════════════════════════════════════════
+  // CARD 3 — Glow + parallax + reveal
+  // ════════════════════════════════════════════
+  (function() {
+    const card = document.getElementById('pc3');
+    const glow = card.querySelector('.pc3-glow');
+    const num  = card.querySelector('.pc3-num');
+    let raf = null;
+    let mx = 0, my = 0;   // target mouse position
+    let gx = 0, gy = 0;   // current glow position (lerped)
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function tick() {
+      gx = lerp(gx, mx, 0.1);
+      gy = lerp(gy, my, 0.1);
+      glow.style.left = gx + 'px';
+      glow.style.top  = gy + 'px';
+      raf = requestAnimationFrame(tick);
+    }
+
+    card.addEventListener('mouseenter', () => {
+      const r = card.getBoundingClientRect();
+      gx = r.width / 2; gy = r.height / 2;
+      mx = gx; my = gy;
+      raf = requestAnimationFrame(tick);
+    });
+
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      mx = e.clientX - r.left;
+      my = e.clientY - r.top;
+      // Parallax: num moves at ~25% of cursor offset from center
+      const dx = (mx - r.width  / 2) * 0.12;
+      const dy = (my - r.height / 2) * 0.12;
+      num.style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      cancelAnimationFrame(raf);
+      num.style.transform = 'translate(0, 0)';
+      num.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      setTimeout(() => { num.style.transition = 'transform 0.12s linear'; }, 620);
+    });
+  })();
+</script>
+</body>
+</html>

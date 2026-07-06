@@ -5,8 +5,10 @@
  */
 
 //make .env file available
+const fs = require('fs');
+const envPath = `.env.${process.env.NODE_ENV}`;
 require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`
+  path: fs.existsSync(envPath) ? envPath : '.env'
 });
 
 module.exports = {
