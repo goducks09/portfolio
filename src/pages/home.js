@@ -328,20 +328,20 @@ const Principles = styled.section`
 
   /* pc2 Responsive Morph Card */
   .pc2-label {
-    display: none;
+    visibility: hidden;
     font-family: 'DM Mono', monospace;
     font-size: 0.6rem;
     letter-spacing: 0.2em;
     color: var(--gold);
     opacity: 0;
     margin-bottom: 0.65rem;
-    transition: opacity 0.3s ease, color 0.4s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease, color 0.4s ease;
     text-align: left;
     text-transform: uppercase;
   }
 
   #pc2:hover .pc2-label {
-    display: block;
+    visibility: visible;
     opacity: 1;
   }
 
@@ -588,9 +588,14 @@ const TypewrittenCode = ({ state }) => {
   );
 };
 
-export const Head = () => <Seo />;
+export const Head = () => (
+  <Seo
+    title="Chris Pulver | Software Engineer"
+    description="Portland-based software engineer specializing in Python, React, and full-stack web development."
+  />
+);
 
-export default function Home(context) {
+export default function Home({ data }) {
   // ── Active dock navigation state ──
   const [activeSection, setActiveSection] = useState('hero');
 
@@ -654,9 +659,8 @@ export default function Home(context) {
   }, []);
 
   // ── Card 3: Glow & Parallax state ──
-  const [pc3Glow, setPc3Glow] = useState({ left: '50%', top: '50%', opacity: 0 });
-  const [pc3NumTransform, setPc3NumTransform] = useState('translate(0px, 0px)');
-  const [pc3NumTransition, setPc3NumTransition] = useState('transform 0.12s linear');
+  const pc3GlowRef = useRef(null);
+  const pc3NumRef = useRef(null);
   const pc3CardRef = useRef(null);
   const pc3Raf = useRef(null);
   const pc3MousePos = useRef({ mx: 0, my: 0 });
@@ -667,11 +671,10 @@ export default function Home(context) {
   const tickPc3 = useCallback(() => {
     pc3GlowPos.current.gx = lerp(pc3GlowPos.current.gx, pc3MousePos.current.mx, 0.1);
     pc3GlowPos.current.gy = lerp(pc3GlowPos.current.gy, pc3MousePos.current.my, 0.1);
-    setPc3Glow(prev => ({
-      ...prev,
-      left: `${pc3GlowPos.current.gx}px`,
-      top: `${pc3GlowPos.current.gy}px`
-    }));
+    if (pc3GlowRef.current) {
+      pc3GlowRef.current.style.left = `${pc3GlowPos.current.gx}px`;
+      pc3GlowRef.current.style.top = `${pc3GlowPos.current.gy}px`;
+    }
     pc3Raf.current = requestAnimationFrame(tickPc3);
   }, []);
 
@@ -682,7 +685,11 @@ export default function Home(context) {
     const startY = r.height / 2;
     pc3GlowPos.current = { gx: startX, gy: startY };
     pc3MousePos.current = { mx: startX, my: startY };
-    setPc3Glow({ left: `${startX}px`, top: `${startY}px`, opacity: 1 });
+    if (pc3GlowRef.current) {
+      pc3GlowRef.current.style.left = `${startX}px`;
+      pc3GlowRef.current.style.top = `${startY}px`;
+      pc3GlowRef.current.style.opacity = '1';
+    }
     pc3Raf.current = requestAnimationFrame(tickPc3);
   }, [tickPc3]);
 
@@ -696,17 +703,25 @@ export default function Home(context) {
     // Parallax: num moves at ~12% of cursor offset from center
     const dx = (mx - r.width / 2) * 0.12;
     const dy = (my - r.height / 2) * 0.12;
-    setPc3NumTransform(`translate(${dx}px, ${dy}px)`);
+    if (pc3NumRef.current) {
+      pc3NumRef.current.style.transform = `translate(${dx}px, ${dy}px)`;
+    }
   }, []);
 
   const handlePc3MouseLeave = useCallback(() => {
     if (pc3Raf.current) cancelAnimationFrame(pc3Raf.current);
-    setPc3Glow(prev => ({ ...prev, opacity: 0 }));
-    setPc3NumTransition('transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)');
-    setPc3NumTransform('translate(0px, 0px)');
-    setTimeout(() => {
-      setPc3NumTransition('transform 0.12s linear');
-    }, 620);
+    if (pc3GlowRef.current) {
+      pc3GlowRef.current.style.opacity = '0';
+    }
+    if (pc3NumRef.current) {
+      pc3NumRef.current.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      pc3NumRef.current.style.transform = 'translate(0px, 0px)';
+      setTimeout(() => {
+        if (pc3NumRef.current) {
+          pc3NumRef.current.style.transition = 'transform 0.12s linear';
+        }
+      }, 620);
+    }
   }, []);
 
   // ── Callbacks for Observers passed to event-driven APIs ──
@@ -762,14 +777,17 @@ export default function Home(context) {
       sections.forEach(s => sectionObserver.unobserve(s));
       window.removeEventListener('scroll', updateTimelineNode);
       window.removeEventListener('resize', updateTimelineNode);
+
+      // Clean up timer/RAF refs on unmount
+      if (pc1Timer.current) clearInterval(pc1Timer.current);
+      if (pc1CompileTimer.current) clearTimeout(pc1CompileTimer.current);
+      if (pc2Timer.current) clearInterval(pc2Timer.current);
+      if (pc3Raf.current) cancelAnimationFrame(pc3Raf.current);
     };
   }, [handleRevealIntersect, handleActiveSectionIntersect, updateTimelineNode]);
 
   // retrieve list of projects from static GraphQL data
-  let pages = [];
-  if (context.data) {
-    pages = context.data.githubData.data.user.pinnedItems.nodes;
-  }
+  const pages = data?.githubData?.data?.user?.pinnedItems?.nodes ?? [];
 
   return (
     <Layout>
@@ -873,17 +891,19 @@ export default function Home(context) {
               <div
                 className="pc3-glow"
                 aria-hidden="true"
+                ref={pc3GlowRef}
                 style={{
-                  left: pc3Glow.left,
-                  top: pc3Glow.top,
-                  opacity: pc3Glow.opacity
+                  left: '50%',
+                  top: '50%',
+                  opacity: 0
                 }}
               />
               <div
                 className="principle-num pc3-num"
+                ref={pc3NumRef}
                 style={{
-                  transform: pc3NumTransform,
-                  transition: pc3NumTransition
+                  transform: 'translate(0px, 0px)',
+                  transition: 'transform 0.12s linear'
                 }}
               >
                 03

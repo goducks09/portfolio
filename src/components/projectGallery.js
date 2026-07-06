@@ -35,8 +35,10 @@ const Card = styled.div`
   .project-card-img {
     position: absolute;
     inset: 0;
-    background-size: cover;
-    background-position: center;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -140,9 +142,13 @@ export default function ProjectGallery({ pages }) {
                 <div className="project-placeholder-bg" aria-hidden="true">
                   {PLACEHOLDER_SVGS[index % PLACEHOLDER_SVGS.length]}
                 </div>
-                <div 
+                <img 
                   className="project-card-img" 
-                  style={{ backgroundImage: `url(${project.openGraphImageUrl})` }} 
+                  src={project.openGraphImageUrl}
+                  alt={`${project.name} preview`}
+                  loading="lazy"
+                  width="800"
+                  height="500"
                 />
                 <div className="project-card-overlay">
                   <div className="project-card-name">{project.name}</div>
