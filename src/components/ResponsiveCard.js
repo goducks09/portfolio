@@ -9,7 +9,7 @@ const Label = styled.div`
   letter-spacing: 0.2em;
   color: var(--gold);
   opacity: 0;
-  margin-bottom: 0.65rem;
+  margin-top: 1.5rem;
   transition: opacity 0.3s ease, visibility 0.3s ease, color 0.4s ease;
   text-align: left;
   text-transform: uppercase;
@@ -86,10 +86,10 @@ export default function ResponsiveCard() {
       onMouseLeave={stopPc2Morph}
     >
       <PrincipleNum>02</PrincipleNum>
-      <Label>{pc2State}</Label>
       <Inner>
         <p>Responsive design that is cross-browser compatible.</p>
       </Inner>
+      <Label>{pc2State}</Label>
     </ResponsiveCardWrapper>
   );
 }

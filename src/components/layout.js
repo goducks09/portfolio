@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
     --navy-mid: #0f1724;
     --gold: #c9a96e;
     --gold-dim: rgba(201,169,110,0.15);
-    --muted: #7a8699;
+    --muted: #b3bccc;
     --white: #f4f2ee;
     --line: rgba(255,255,255,0.08);
   }
@@ -63,37 +63,6 @@ const GlobalStyle = createGlobalStyle`
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 2rem 12rem;
-  }
-
-  .timeline-line {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.1) 5%, rgba(255,255,255,0.1) 95%, transparent 100%);
-    transform: translateX(-50%);
-    pointer-events: none;
-  }
-
-  #timeline-node {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--gold);
-    box-shadow: 0 0 0 6px rgba(201,169,110,0.12), 0 0 20px rgba(201,169,110,0.25);
-    pointer-events: none;
-    z-index: 10;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.45s ease;
-  }
-
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 768px) {
-    .timeline-line, #timeline-node {
-      display: none;
-    }
   }
 `;
 

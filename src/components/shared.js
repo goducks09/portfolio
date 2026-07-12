@@ -91,7 +91,7 @@ export const PrincipleNum = styled.div`
   font-family: 'Playfair Display', serif;
   font-size: 4rem;
   font-weight: 900;
-  color: rgba(201,169,110,0.12);
+  color: rgba(201,169,110,0.45);
   line-height: 1;
   margin-bottom: 1rem;
 `;

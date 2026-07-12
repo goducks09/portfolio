@@ -2,6 +2,8 @@ import React from "react";
 import { graphql } from 'gatsby';
 import Home from "./home";
 
+export { Head } from "./home";
+
 //query data to send to the Home page
 const IndexPage = ({ data }) => <Home data={data} />;
 export default IndexPage

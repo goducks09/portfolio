@@ -40,17 +40,8 @@ export default function Home({ data }) {
   }, []);
 
   // ── Main Page Scroll Effects ──
-  const updateTimelineNode = useCallback(() => {
-    const mainWrap = document.querySelector('.main-wrap');
-    if (!mainWrap) return;
-
+  const updateHeadingUnderlines = useCallback(() => {
     const viewMid = window.innerHeight / 2;
-    const timelineSections = mainWrap.querySelectorAll('section[id]');
-    timelineSections.forEach(section => {
-      const sr = section.getBoundingClientRect();
-      const inside = sr.top < viewMid && sr.bottom > viewMid;
-      section.classList.toggle('in-view', inside);
-    });
 
     const h2Wraps = document.querySelectorAll('.h2-wrap');
     h2Wraps.forEach(wrap => {
@@ -74,19 +65,19 @@ export default function Home({ data }) {
     const sectionObserver = new IntersectionObserver(handleActiveSectionIntersect, { threshold: 0.4 });
     sections.forEach(s => sectionObserver.observe(s));
 
-    // 3. Scroll & Resize listeners for timeline dot
-    window.addEventListener('scroll', updateTimelineNode, { passive: true });
-    window.addEventListener('resize', updateTimelineNode);
-    updateTimelineNode();
+    // 3. Scroll & Resize listeners for heading underline effect
+    window.addEventListener('scroll', updateHeadingUnderlines, { passive: true });
+    window.addEventListener('resize', updateHeadingUnderlines);
+    updateHeadingUnderlines();
 
     return () => {
       revealEls.forEach(el => revealObserver.unobserve(el));
       sections.forEach(s => sectionObserver.unobserve(s));
-      window.removeEventListener('scroll', updateTimelineNode);
-      window.removeEventListener('resize', updateTimelineNode);
+      window.removeEventListener('scroll', updateHeadingUnderlines);
+      window.removeEventListener('resize', updateHeadingUnderlines);
 
     };
-  }, [handleRevealIntersect, handleActiveSectionIntersect, updateTimelineNode]);
+  }, [handleRevealIntersect, handleActiveSectionIntersect, updateHeadingUnderlines]);
 
   // retrieve list of projects from static GraphQL data
   const pages = data?.githubData?.data?.user?.pinnedItems?.nodes ?? [];
@@ -96,8 +87,6 @@ export default function Home({ data }) {
       <HeroSection />
 
       <div className="main-wrap">
-        <div className="timeline-line" aria-hidden="true"></div>
-
         <AboutSection />
         <PrinciplesSection />
         <SkillsSection />
