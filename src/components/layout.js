@@ -106,11 +106,11 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
     margin-top: 0.6rem;
   }
 
-  section.in-view .section-underline {
+  .h2-wrap.active .section-underline {
     transform: scaleX(1);
   }
 
@@ -120,7 +120,7 @@ const GlobalStyle = createGlobalStyle`
                 letter-spacing 0.55s ease 0.05s;
   }
 
-  section.in-view .h2-wrap h2 {
+  .h2-wrap.active h2 {
     transform: translateY(-4px);
     letter-spacing: 0.01em;
   }
