@@ -180,35 +180,6 @@ const Sidebar = styled.aside`
     color: #ffffff;
     background-color: #1e293b;
   }
-
-  .case-details-box {
-    margin-top: 2.5rem;
-    padding: 1.5rem 1rem 0;
-    border-top: 1px solid #e2e8f0;
-  }
-
-  .case-details-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: #94a3b8;
-    margin-bottom: 1rem;
-  }
-
-  .case-details-list {
-    font-size: 0.85rem;
-    color: #475569;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .case-details-item span {
-    font-weight: 600;
-    color: #0f172a;
-  }
 `;
 
 const ContentBody = styled.div`
@@ -224,6 +195,16 @@ const ContentBody = styled.div`
 const Section = styled.section`
   scroll-margin-top: 3rem;
   text-align: left;
+
+  a {
+    color: #3b82f6;
+    font-weight: 600;
+    text-decoration: underline;
+
+    &:hover {
+      color: #2563eb;
+    }
+  }
 
   h2 {
     font-family: 'Playfair Display', serif;
@@ -283,37 +264,6 @@ const Badge = styled.span`
   }
 `;
 
-const FootnoteBox = styled.div`
-  margin-top: 2rem;
-  padding: 2rem;
-  background-color: #f1f5f9;
-  border-radius: 1rem;
-  border: 1px solid #e2e8f0;
-
-  h4 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 0.75rem;
-  }
-
-  p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #475569;
-    
-    a {
-      color: #3b82f6;
-      font-weight: 600;
-      text-decoration: underline;
-
-      &:hover {
-        color: #2563eb;
-      }
-    }
-  }
-`;
-
 export const Head = () => <Seo />;
 
 export default function Page(context) {
@@ -370,32 +320,24 @@ export default function Page(context) {
           {/* Sidebar */}
           <Sidebar>
             <nav aria-label="Case study sections">
-              <a 
-                href="#overview" 
+              <a
+                href="#overview"
                 className={`nav-link ${activeSection === 'overview' ? 'active' : ''}`}
               >
                 Overview
               </a>
-              <a 
-                href="#technologies" 
+              <a
+                href="#technologies"
                 className={`nav-link ${activeSection === 'technologies' ? 'active' : ''}`}
               >
                 Technologies
               </a>
-              <a 
-                href="#view-code" 
+              <a
+                href="#view-code"
                 className={`nav-link ${activeSection === 'view-code' ? 'active' : ''}`}
               >
                 View the Code
               </a>
-              <div className="case-details-box">
-                <h4 className="case-details-title">Case Details</h4>
-                <div className="case-details-list">
-                  <div className="case-details-item"><span>Date:</span> Jan 2026</div>
-                  <div className="case-details-item"><span>Role:</span> Lead Developer</div>
-                  <div className="case-details-item"><span>Platform:</span> Web Application</div>
-                </div>
-              </div>
             </nav>
           </Sidebar>
 
@@ -426,14 +368,8 @@ export default function Page(context) {
             <Section id="view-code">
               <h2>View the Code</h2>
               <div className="prose">
-                <p>The code is fully open-source and hosted on GitHub under a clean repository configuration.</p>
+                <p>Explore the codebase on <a href={url} target="_blank" rel="noreferrer">GitHub</a>.</p>
               </div>
-              <FootnoteBox>
-                <h4>GitHub Repository</h4>
-                <p>
-                  Explore the codebase, read through commit structures, or clone it locally directly from the <a href={url} target="_blank" rel="noreferrer">GitHub Repository</a>.
-                </p>
-              </FootnoteBox>
             </Section>
           </ContentBody>
         </MainGrid>
