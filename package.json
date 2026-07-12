@@ -2,20 +2,18 @@
   "name": "developed-by-chris",
   "private": true,
   "description": "A software engineer portfolio for Chris Pulver, highlighting my work and experience.",
-  "version": "0.1.0",
-  "license": "0BSD",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "clean": "gatsby clean"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^2.3.0",
-    "fontsource-nunito": "^4.0.0",
     "gatsby": "^5.16.1",
     "gatsby-plugin-styled-components": "^6.16.0",
     "gsap": "^3.15.0",
@@ -28,11 +26,5 @@
   "devDependencies": {
     "prettier": "^3.8.3"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-hello-world"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
-  }
+  "author": "Chris Pulver"
 }
