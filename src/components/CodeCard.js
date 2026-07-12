@@ -1,6 +1,94 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
+import { PrincipleCardWrapper, PrincipleNum } from './shared';
 
 const RAW = `def write_code() -> dict:\n    """Clean. Readable. Maintainable."""\n    return {\n        "readable":     True,\n        "maintainable": True,\n        "next_dev":     "grateful"\n    }`;
+
+const tblink = keyframes`
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 0; }
+`;
+
+const Prose = styled.div`
+  transition: opacity 0.32s ease, transform 0.32s ease;
+`;
+
+const Terminal = styled.div`
+  position: absolute;
+  inset: 0;
+  padding: 1.25rem 1.5rem;
+  background: #0d1117;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+`;
+
+const CodeCardWrapper = styled(PrincipleCardWrapper)`
+  &:hover ${Prose} {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  &:hover ${Terminal} {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+`;
+
+const TerminalBar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-bottom: 0.65rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+`;
+
+const Dot = styled.span`
+  width: 9px; height: 9px; border-radius: 50%;
+  background: ${props => props.$color};
+`;
+
+const TerminalFname = styled.span`
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.22);
+  margin-left: 6px;
+  letter-spacing: 0.04em;
+`;
+
+const TerminalPre = styled.pre`
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  line-height: 1.65;
+  margin: 0;
+  white-space: pre-wrap;
+  flex: 1;
+  overflow: hidden;
+  color: rgba(201,169,110,0.85);
+
+  .t-cm  { color: #4a5568; }
+  .t-kw  { color: #d2a8ff; }
+  .t-fn  { color: #e2c08d; }
+  .t-st  { color: #a5d6ff; }
+  .t-bo  { color: #79c0ff; }
+  .t-pu  { color: #c9d1d9; }
+`;
+
+const Cursor = styled.span`
+  display: inline-block;
+  width: 6px; height: 0.9em;
+  background: var(--gold);
+  opacity: 0.75;
+  vertical-align: text-bottom;
+  animation: ${tblink} 0.9s step-end infinite;
+`;
 
 const TypewrittenCode = ({ state }) => {
   if (state.highlighted) {
@@ -20,7 +108,7 @@ const TypewrittenCode = ({ state }) => {
   return (
     <>
       {state.text}
-      {state.typing && <span className="t-cursor" />}
+      {state.typing && <Cursor />}
     </>
   );
 };
@@ -65,7 +153,6 @@ export default function CodeCard() {
     setPc1State({ typing: false, text: '', highlighted: false, opacity: 1 });
   }, []);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (pc1Timer.current) clearInterval(pc1Timer.current);
@@ -74,28 +161,26 @@ export default function CodeCard() {
   }, []);
 
   return (
-    <div
-      className="principle-card"
-      id="pc1"
+    <CodeCardWrapper
       role="presentation"
       onMouseEnter={startPc1Typing}
       onMouseLeave={stopPc1Typing}
     >
-      <div className="pc1-prose">
-        <div className="principle-num">01</div>
+      <Prose>
+        <PrincipleNum>01</PrincipleNum>
         <p>Write clean, maintainable code that the next developer can understand at a glance.</p>
-      </div>
-      <div className="pc1-terminal" aria-hidden="true" style={(pc1State.typing || pc1State.highlighted) ? { opacity: pc1State.opacity } : {}}>
-        <div className="terminal-bar">
-          <span className="t-dot t-dot-r"></span>
-          <span className="t-dot t-dot-y"></span>
-          <span className="t-dot t-dot-g"></span>
-          <span className="terminal-fname">principle_01.py</span>
-        </div>
-        <pre className="terminal-pre">
+      </Prose>
+      <Terminal aria-hidden="true" style={(pc1State.typing || pc1State.highlighted) ? { opacity: pc1State.opacity } : {}}>
+        <TerminalBar>
+          <Dot $color="#ff5f57" />
+          <Dot $color="#ffbd2e" />
+          <Dot $color="#28ca41" />
+          <TerminalFname>principle_01.py</TerminalFname>
+        </TerminalBar>
+        <TerminalPre>
           <TypewrittenCode state={pc1State} />
-        </pre>
-      </div>
-    </div>
+        </TerminalPre>
+      </Terminal>
+    </CodeCardWrapper>
   );
 }

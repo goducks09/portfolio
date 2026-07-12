@@ -25,7 +25,7 @@ export default function Home({ data }) {
   const handleRevealIntersect = useCallback((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.classList.add('visible');
+        e.target.dataset.visible = 'true';
       }
     });
   }, []);
@@ -55,7 +55,11 @@ export default function Home({ data }) {
     const h2Wraps = document.querySelectorAll('.h2-wrap');
     h2Wraps.forEach(wrap => {
       const r = wrap.getBoundingClientRect();
-      wrap.classList.toggle('active', r.top < viewMid);
+      if (r.top < viewMid) {
+        wrap.dataset.active = 'true';
+      } else {
+        wrap.dataset.active = 'false';
+      }
     });
   }, []);
 

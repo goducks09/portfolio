@@ -1,4 +1,57 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+import styled from 'styled-components';
+import { PrincipleCardWrapper, PrincipleNum } from './shared';
+
+const Label = styled.div`
+  visibility: hidden;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  opacity: 0;
+  margin-bottom: 0.65rem;
+  transition: opacity 0.3s ease, visibility 0.3s ease, color 0.4s ease;
+  text-align: left;
+  text-transform: uppercase;
+`;
+
+const Inner = styled.div`
+  transition: max-width 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              border-right 0.75s ease;
+  max-width: 100%;
+  overflow: hidden;
+  text-align: left;
+
+  p {
+    transition: font-size 0.55s ease, line-height 0.55s ease;
+  }
+`;
+
+const ResponsiveCardWrapper = styled(PrincipleCardWrapper)`
+  &:hover ${Label} {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &[data-state="tablet"] ${Inner} {
+    max-width: 74%; 
+    border-right: 2px solid rgba(201,169,110,0.12); 
+  }
+
+  &[data-state="mobile"] ${Inner} {
+    max-width: 52%; 
+    border-right: 2px solid rgba(126,231,135,0.18); 
+    
+    p {
+      font-size: 0.88rem; 
+      line-height: 1.45; 
+    }
+  }
+
+  &[data-state="mobile"] ${Label} {
+    color: #7ee787; 
+  }
+`;
 
 export default function ResponsiveCard() {
   const [pc2State, setPc2State] = useState('desktop');
@@ -19,7 +72,6 @@ export default function ResponsiveCard() {
     setPc2State('desktop');
   }, []);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (pc2Timer.current) clearInterval(pc2Timer.current);
@@ -27,18 +79,17 @@ export default function ResponsiveCard() {
   }, []);
 
   return (
-    <div
-      className={`principle-card ${pc2State === 'tablet' ? 'p2-tablet' : pc2State === 'mobile' ? 'p2-mobile' : ''}`}
-      id="pc2"
+    <ResponsiveCardWrapper
+      data-state={pc2State}
       role="presentation"
       onMouseEnter={startPc2Morph}
       onMouseLeave={stopPc2Morph}
     >
-      <div className="principle-num">02</div>
-      <div className="pc2-label">{pc2State}</div>
-      <div className="pc2-inner">
+      <PrincipleNum>02</PrincipleNum>
+      <Label>{pc2State}</Label>
+      <Inner>
         <p>Responsive design that is cross-browser compatible.</p>
-      </div>
-    </div>
+      </Inner>
+    </ResponsiveCardWrapper>
   );
 }
