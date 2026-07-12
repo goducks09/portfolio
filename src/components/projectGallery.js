@@ -58,20 +58,13 @@ const ProjectCardLinkText = styled.div`
   transition: opacity 0.3s ease, transform 0.3s ease;
 `;
 
-const ProjectCardName = styled.div`
+const ProjectCardDesc = styled.div`
   font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.4rem;
   line-height: 1.2;
   color: var(--white);
-`;
-
-const ProjectCardDesc = styled.div`
-  font-size: 1rem;
-  color: var(--muted);
-  line-height: 1.5;
-  font-weight: 300;
 `;
 
 const ProjectPlaceholderBg = styled.div`
@@ -143,13 +136,12 @@ export default function ProjectGallery({ pages }) {
               </ProjectPlaceholderBg>
               <ProjectCardImg
                 src={project.openGraphImageUrl}
-                alt={`${project.name} preview`}
+                alt={`${project.description} preview`}
                 loading="lazy"
                 width="800"
                 height="500"
               />
               <ProjectCardOverlay>
-                <ProjectCardName>{project.name}</ProjectCardName>
                 <ProjectCardDesc>{project.description}</ProjectCardDesc>
                 <ProjectCardLinkText>View Project →</ProjectCardLinkText>
               </ProjectCardOverlay>
