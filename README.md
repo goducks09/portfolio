@@ -1,12 +1,27 @@
-<p>
-In creating developedbychris.com, I decided to use this project as an additional opportunity to challenge myself. In my prior experience studying React, I had read about the popularity of Gatsby but hadn't worked with it. I thought this would be a good opportunity to try it out!
-</p>
-<p>
-I began by creating a couple of prototypes using Webflow with my focus on making a site that was simple and highlighted my skills and work. I then moved on to reading through documentation to become familiar with Gatsby. The documentation was very helpful, and I was able to get the core of my site up and running in a short amount of time. While the initial setup was straight-forward, I had not used GraphQL previously and had to do some additional reading to get the functionality I desired—namely in accessing information from the Github API, which provided a couple of roadblocks. However, after a couple rounds of debugging I was happy to have everything working properly. Because of the relative ease I had on this project, I plan on using Gatsby again on a more complex program to see if it's a tool I will use moving forward.
-</p>
-<p>
-With the initial setup being complete, I decided to find a second area where I could try something new. I knew I wanted to add some animations to my site, so I searched for some popular tools and came across GreenSock Animation Platform (GSAP). The fact that this was JavaScript-based animation intrigued me, and as I looked through their documentation, I began finding multiple ideas I wanted to try out. I was especially intrigued by the ScrollTrigger plugin which allows you to, as the name would indicate, trigger animations based on a user scrolling. You can see this in action with the underlining in the "About" section and the pinning of the page in the "Development Principles" section.
-</p>
-<p>
-While design is not necessarily my forte, I'm happy with the way the portfolio turned out and feel accomplished in having a project where I was able to successfully incorporate two new tools. I hope you enjoy it!
-</p>
+# Developing A Portfolio Website
+
+## Architecture & Design Philosophy
+
+The goal for this portfolio was to build a content-driven static site that automatically incorporates live GitHub repository data at build time. I like to try out different tools to see what benefit they might provide. Having previously focused heavily on standard React workflows, I decided to use **Gatsby** after seeing it recommended in a few places.
+
+Before writing any code, I focused on the layout design by building interactive prototypes in **Webflow**. This allowed me to iterate rapidly on layout configurations, responsive breakpoints, and visual hierarchy without worrying about boilerplate setup. Once the design UI/UX patterns were finalized, I mapped the visual components directly into structured React components.
+
+## Design Implementation & Styling Architecture
+I decided to use styled-components, embracing a component-driven architectural pattern. This allowed me to encapsulate both logic and styling within a single file, making future UI/UX updates simple and intuitive.
+
+**Dynamic Styling & Theming:** I utilized a combination of CSS Custom Properties, React state, styled-components props, and HTML data-attributes to manage dynamic styling while also centralizing shared values in a global theme file.
+
+**Critical CSS & SSR Integration:** I integrated the gatsby-plugin-styled-components plugin to ensure that all critical styles were server-side rendered (SSR) and injected directly into the HTML header at build time, resulting in instantaneous visual rendering for users.
+
+## The Technical Challenge: Integrating the GitHub GraphQL API
+
+While bootstrapping the Gatsby environment was straightforward, the primary challenge was handling the dynamic data at build time. To highlight my active repositories and commit history, I integrated the **GitHub GraphQL API**. Because I had not previously worked with GraphQL, this introduced a steep but rewarding learning curve.
+
+### Roadblocks & Mitigations
+
+* **Schema Navigation:** Understanding how to construct tightly scoped queries using edges and nodes took some trial and error. I utilized GitHub’s GraphiQL Explorer in addition to manual debugging to isolate the exact repository metadata needed.
+* **Build-Time Data Ingestion:** Rather than relying on third-party source plugins, I authored a custom integration using Gatsby's `sourceNodes` lifecycle API. During the build phase, the site fetches the pinned repositories using the GitHub GraphQL API. The data is then used to create pages for each repository at build time.
+
+## Key Takeaways
+
+This project successfully demonstrated the efficiency of Static Site Generation for developer portfolios. By decoupling the frontend from a traditional server and pre-rendering the HTML, the site achieves fast load times and optimal SEO performance. It also gave me exposure to the Gatsby framework and GitHub GraphQL, expanding my full-stack toolset.
