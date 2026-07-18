@@ -15,7 +15,7 @@ I decided to use styled-components, embracing a component-driven architectural p
 
 ## The Technical Challenge: Integrating the GitHub GraphQL API
 
-While bootstrapping the Gatsby environment was straightforward, the primary challenge was handling the dynamic data at build time. To highlight my active repositories and commit history, I integrated the **GitHub GraphQL API**. Because I had not previously worked with GraphQL, this introduced a steep but rewarding learning curve.
+While bootstrapping the Gatsby environment was straightforward, the primary challenge was handling the dynamic data at build time. To highlight my active repositories and commit history, I integrated the **GitHub GraphQL API**. Because I had not previously worked with GraphQL, this required me to read the documentation and experiment to understand the schema and how to construct queries.
 
 ### Roadblocks & Mitigations
 
