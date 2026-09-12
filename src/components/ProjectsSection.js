@@ -1,14 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProjectGallery from './projectGallery';
-import { SectionWrapper, RevealWrapper, SectionLabel, H2Wrap, SectionUnderline } from './shared';
+import { SectionWrapper, RevealWrapper, SectionLabel, H2Wrap, SectionUnderline, SectionHeading } from './shared';
 
-const Projects = styled(SectionWrapper)`
-  h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 0.5rem;
-  }
-`;
+const Projects = styled(SectionWrapper)``;
 
 const ProjectsHeader = styled(RevealWrapper)`
   text-align: center;
@@ -21,7 +16,7 @@ export default function ProjectsSection({ pages }) {
       <ProjectsHeader>
         <SectionLabel $align="center">View My Work</SectionLabel>
         <H2Wrap>
-          <h2>Projects</h2>
+          <SectionHeading>Projects</SectionHeading>
           <SectionUnderline $origin="center" />
         </H2Wrap>
       </ProjectsHeader>

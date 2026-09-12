@@ -3,18 +3,10 @@ import styled from 'styled-components';
 import CodeCard from './CodeCard';
 import ResponsiveCard from './ResponsiveCard';
 import InteractiveCard from './InteractiveCard';
-import { SectionWrapper, RevealWrapper, H2Wrap, SectionUnderline } from './shared';
+import { SectionWrapper, RevealWrapper, H2Wrap, SectionUnderline, SectionHeading } from './shared';
 
 const Principles = styled(SectionWrapper)`
   text-align: center;
-
-  h2 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1.15;
-    max-width: 700px;
-    margin: 0 auto;
-  }
 `;
 
 const PrinciplesHeader = styled(RevealWrapper)`
@@ -49,7 +41,7 @@ export default function PrinciplesSection() {
       <PrinciplesHeader>
         <PrinciplesEyebrow>How I Work</PrinciplesEyebrow>
         <H2Wrap>
-          <h2>Core Principles</h2>
+          <SectionHeading>Core Principles</SectionHeading>
           <SectionUnderline $origin="center" />
         </H2Wrap>
       </PrinciplesHeader>

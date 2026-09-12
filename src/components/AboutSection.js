@@ -1,13 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SectionWrapper, SectionLabel, H2Wrap, RevealWrapper, SectionUnderline } from './shared';
-
-const Heading = styled.h2`
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
-  font-weight: 400;
-  line-height: 1.35;
-  color: var(--white);
-`;
+import { SectionWrapper, SectionLabel, H2Wrap, RevealWrapper, SectionUnderline, SectionHeading } from './shared';
 
 const BodyText = styled.p`
   margin-top: 1.5rem;
@@ -21,11 +14,9 @@ export default function AboutSection() {
   return (
     <SectionWrapper id="about">
       <RevealWrapper>
-        <SectionLabel>About Me</SectionLabel>
+        <SectionLabel $align="center">About Me</SectionLabel>
         <H2Wrap $block>
-          <Heading>
-            Bridging the gap between engineering and the user
-          </Heading>
+          <SectionHeading>Bridging the gap between engineering and the user</SectionHeading>
           <SectionUnderline />
         </H2Wrap>
         <BodyText>

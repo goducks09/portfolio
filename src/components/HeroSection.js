@@ -114,37 +114,6 @@ const Title = styled.p`
   animation: ${fadeUp} 0.8s ease forwards 0.9s;
 `;
 
-const ScrollWrapper = styled.div`
-  position: absolute;
-  bottom: clamp(2rem, 8vh, 6rem);
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: ${heroScrollFadeIn} 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 2s,
-             ${heroScrollPulse} 2.5s ease-in-out infinite 2.8s;
-
-  span {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    text-indent: 0.3em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-`;
-
-const ScrollLine = styled.div`
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
-  transform-origin: top;
-  animation: ${scrollLineScale} 2.5s ease-in-out infinite 2.8s;
-`;
 
 export default function HeroSection() {
   return (
@@ -155,10 +124,6 @@ export default function HeroSection() {
         <Name>Chris<br />Pulver</Name>
         <Title>Built to Solve Problems</Title>
       </Content>
-      <ScrollWrapper aria-hidden="true">
-        <span>Scroll</span>
-        <ScrollLine />
-      </ScrollWrapper>
     </Hero>
   );
 }

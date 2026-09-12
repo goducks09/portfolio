@@ -1,16 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SectionWrapper, RevealWrapper, SectionLabel, H2Wrap, SectionUnderline } from './shared';
+import { SectionWrapper, RevealWrapper, SectionLabel, H2Wrap, SectionUnderline, SectionHeading } from './shared';
 
 const Connect = styled(SectionWrapper)`
   text-align: center;
   padding: 8rem 0 4rem;
-
-  h2 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    margin-bottom: 0;
-    display: inline-block;
-  }
 `;
 
 const ConnectDivider = styled.div`
@@ -72,7 +66,7 @@ export default function ConnectSection() {
       <RevealWrapper>
         <SectionLabel $align="center">Let's Talk</SectionLabel>
         <ConnectH2Wrap>
-          <h2>Connect With Me</h2>
+          <SectionHeading>Connect With Me</SectionHeading>
           <SectionUnderline $origin="center" />
         </ConnectH2Wrap>
         <ConnectBody>

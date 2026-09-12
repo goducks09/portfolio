@@ -1,13 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SectionWrapper, RevealWrapper, SectionLabel, H2Wrap, SectionUnderline } from './shared';
+import { SectionWrapper, RevealWrapper, SectionLabel, H2Wrap, SectionUnderline, SectionHeading } from './shared';
 
-const Skills = styled(SectionWrapper)`
-  h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 0.5rem;
-  }
-`;
+const Skills = styled(SectionWrapper)``;
 
 const SkillsHeader = styled(RevealWrapper)`
   text-align: center;
@@ -94,7 +89,7 @@ export default function SkillsSection() {
       <SkillsHeader>
         <SectionLabel $align="center">Expertise</SectionLabel>
         <H2Wrap>
-          <h2>Skills</h2>
+          <SectionHeading>Skills</SectionHeading>
           <SectionUnderline $origin="center" />
         </H2Wrap>
       </SkillsHeader>

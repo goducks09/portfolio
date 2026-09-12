@@ -35,6 +35,15 @@ export const SectionUnderline = styled.div`
   margin-top: 0.6rem;
 `;
 
+export const SectionHeading = styled.h2`
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+`;
+
+export const Heading = SectionHeading;
+
 export const H2Wrap = styled.div.attrs({ className: 'h2-wrap' })`
   display: inline-block;
   position: relative;
