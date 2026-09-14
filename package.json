@@ -1,42 +1,29 @@
 {
-  "name": "gatsby-starter-hello-world",
+  "name": "developed-by-chris",
   "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
-  "version": "0.1.0",
-  "license": "0BSD",
+  "description": "A software engineer portfolio for Chris Pulver, highlighting my work and experience.",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "clean": "gatsby clean"
   },
   "dependencies": {
-    "babel-plugin-styled-components": "^1.11.1",
-    "fontsource-nunito": "^3.0.9",
-    "gatsby": "^2.24.85",
-    "gatsby-plugin-react-helmet": "^3.4.0",
-    "gatsby-plugin-styled-components": "^3.3.10",
-    "gatsby-plugin-transition-link": "^1.20.5",
-    "gatsby-source-github-api": "^0.2.1",
-    "gsap": "^3.5.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-helmet": "^6.1.0",
-    "react-markdown": "^4.3.1",
-    "sanitize-html": "^1.27.4",
-    "styled-components": "^5.1.1"
+    "babel-plugin-styled-components": "^2.3.0",
+    "gatsby": "^5.16.1",
+    "gatsby-plugin-styled-components": "^6.16.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-markdown": "^10.1.0",
+    "sanitize-html": "^2.17.4",
+    "styled-components": "^6.4.2"
   },
   "devDependencies": {
-    "prettier": "2.0.5"
+    "prettier": "^3.8.3"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-hello-world"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
-  }
+  "author": "Chris Pulver"
 }

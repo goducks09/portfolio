@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Case Study: Media Library App</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              900: '#0f172a', // Deep slate/navy
+              800: '#1e293b',
+              700: '#334155',
+            },
+            accent: {
+              blue: '#3b82f6',
+              indigo: '#6366f1',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-animations">
+    /* Custom glow effect for badges */
+    .glow-pill {
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+      transition: all 0.3s ease;
+    }
+    .glow-pill:hover {
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+      transform: translateY(-2px);
+    }
+    /* Smooth transition for sticky nav active states */
+    .nav-link.active {
+      background-color: #1e293b;
+      color: white;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
+<!-- BEGIN: HeroSection -->
+<header class="relative w-full min-h-[70vh] flex items-center overflow-hidden bg-navy-900 text-white">
+<!-- Background Mockup Layer -->
+<div class="absolute inset-0 z-0 opacity-40 md:opacity-100 flex justify-end items-center pointer-events-none pr-4 md:pr-12 lg:pr-24">
+<img alt="Media Library App Mockup" class="w-full max-w-4xl object-contain object-right transform translate-x-20 md:translate-x-32" data-purpose="hero-mockup" src="https://lh3.googleusercontent.com/aida/ADBb0ugV3Cmv1Cd6UUTx1i-eZhQoapqh8sPQTPGPtz2MeFte4vhYwQETWfWgGSao8hQy94dyQdihXETpS9sIvf7QZUZp_MeM0hdIQ-bEZNgKWqQR8U7RvXElidB3FAw3ungFuIJNff0OB4OARKN0fQi5S6-x37e6UHIGD-_GmKr_lgmdHirzufpoCb_oMFoVHArjHg2paV0y4uJiWY5l62Q8JjHkNqLZnNv_e0ND4FNQ0TnBNPVLW8bgMBe_Sd8"/>
+</div>
+<!-- Content Layer -->
+<div class="container mx-auto px-6 md:px-12 lg:px-24 z-10 relative py-20">
+<div class="max-w-2xl">
+<h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-8">
+          Media Library App: <br/>
+<span class="text-accent-blue">A Full-Stack Movie Cataloging Solution</span>
+</h1>
+<div class="flex flex-wrap gap-4">
+<a class="inline-flex items-center px-8 py-4 bg-accent-blue hover:bg-blue-600 text-white font-semibold rounded-full transition-all duration-300 shadow-lg shadow-blue-500/30" href="#">
+            View Live Demo
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+<a class="inline-flex items-center px-8 py-4 bg-navy-800 hover:bg-slate-700 border border-slate-600 text-white font-semibold rounded-full transition-all duration-300" href="#">
+<svg class="mr-2 w-6 h-6" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg>
+            Github Repo
+          </a>
+</div>
+</div>
+</div>
+</header>
+<!-- END: HeroSection -->
+<!-- BEGIN: MainContentGrid -->
+<main class="container mx-auto px-6 md:px-12 lg:px-24 py-20">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Column: Sticky Navigation -->
+<aside class="lg:col-span-3">
+<nav class="sticky top-12 space-y-2" data-purpose="sticky-sidebar-nav">
+<a class="nav-link block px-4 py-2 text-lg font-medium text-slate-600 hover:text-navy-900 transition-colors active" href="#overview">Overview</a>
+<a class="nav-link block px-4 py-2 text-lg font-medium text-slate-600 hover:text-navy-900 transition-colors" href="#challenge">Challenge</a>
+<a class="nav-link block px-4 py-2 text-lg font-medium text-slate-600 hover:text-navy-900 transition-colors" href="#process">Process</a>
+<a class="nav-link block px-4 py-2 text-lg font-medium text-slate-600 hover:text-navy-900 transition-colors" href="#tech-stack">Tech Stack</a>
+<div class="pt-10">
+<h4 class="px-4 text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Case Details</h4>
+<div class="px-4 text-sm text-slate-600">
+<p class="mb-2"><span class="font-bold">Date:</span> Jan 2024</p>
+<p class="mb-2"><span class="font-bold">Role:</span> Lead Developer</p>
+<p><span class="font-bold">Platform:</span> iOS / Android</p>
+</div>
+</div>
+</nav>
+</aside>
+<!-- Right Column: Content Body -->
+<div class="lg:col-span-9 space-y-24" data-purpose="case-study-content">
+<!-- Section: Overview -->
+<section class="scroll-mt-12" id="overview">
+<h2 class="text-3xl font-bold text-navy-900 mb-6">Overview</h2>
+<div class="prose prose-lg text-slate-600 max-w-none space-y-6">
+<p>
+              In deciding my next project, I thought about ideas that could application. One way I enjoy spending my free time is watching moving modes, and as recall, it's sought. Natural an application to catalog my library.
+            </p>
+<p>
+              There are multiple projects already available for this purpose, but I decided to build mine from the ground-up with features I wanted, rather than base on an existing product. This first step to Adobe XD. This included the layout screens of the app and components on a final design including features: movie search, collecting with movies in collection within and a randomizer.
+            </p>
+<p>
+              As this project was mainly a chance for completing skills, but decided that I used in previous development. However, I including a my slightly, for multiple sections and React Native, but better before I started. I decided to build my platform agnostic while continuing to hone my React skills.
+            </p>
+</div>
+</section>
+<!-- Section: Challenge -->
+<section class="scroll-mt-12" id="challenge">
+<h2 class="text-3xl font-bold text-navy-900 mb-6">Challenge</h2>
+<div class="prose prose-lg text-slate-600 max-w-none">
+<p>
+              I decided the MERN (MongoDB, Express, React, Node) stack that I've optimized. However, I created a prototype creating in Adobe XD. I decided it is included the layouts and organization with simple app, and build a routine mobile app, rather web-based and architectural and member-wise documents.
+            </p>
+</div>
+</section>
+<!-- Section: Process -->
+<section class="scroll-mt-12" id="process">
+<h2 class="text-3xl font-bold text-navy-900 mb-8">Process</h2>
+<div class="grid md:grid-cols-2 gap-12 items-start">
+<div class="space-y-12">
+<div>
+<h3 class="text-xl font-bold text-navy-900 mb-3">Prototyping</h3>
+<p class="text-slate-600 leading-relaxed">
+                  Every project begins with toning prototyping, what the first needed at more end and more more with drop shadows.
+                </p>
+</div>
+<div>
+<h3 class="text-xl font-bold text-navy-900 mb-3">Data Modeling</h3>
+<p class="text-slate-600 leading-relaxed">
+                  Develop data meaning user behavior would where would be determining where styling data of references is associate documents.
+                </p>
+</div>
+<div>
+<h3 class="text-xl font-bold text-navy-900 mb-3">Development</h3>
+<p class="text-slate-600 leading-relaxed">
+                  High-quality screenshots with various and personal and quality at component, main library component, entry modules and projects.
+                </p>
+</div>
+</div>
+<!-- Screenshots Gallery -->
+<div class="grid grid-cols-2 gap-4" data-purpose="process-screenshots">
+<div class="space-y-4">
+<img alt="Mobile App Wireframe" class="w-full rounded-2xl shadow-xl border border-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdCHongaOtsCqhU73hEKPYzjSPU-xkU0mlnR88zYQcPYCU6xGOSFUMEei8dEb1iB08a0zjTGHzDzC7D6H2HVXXb8wNgAeUcOhdF2ptJVFH2R7wAU-le2q2_YeYkSbQyDZWivqiRGx7IQZB4PVmXKQt8l5_CBF_jH0LuqpN3Hu3F3XGvRS-xKrgAKb6MDebqn6fIiwvM2PnUZHDdqccvzUXGkDWS1foI-sew9FeYI-9W2GaEeemjEjrM76t1SLgO0cDDvp0hx7LTvs"/>
+</div>
+<div class="space-y-4 pt-8">
+<img alt="Mobile App Final UI" class="w-full rounded-2xl shadow-xl border border-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9zvr0I1NbAf2Fuv9O0yfdP6UOWXsyNod7uuQb_NH59U7gaXrqZcW-oW7LbUgMulOrOG005fhqHVZYv1elaon-nrwRgrTfK33RA4U_rCuowgYIAgnmERFJ4awgFsoNHv-j9R4F-YKD_hB9js9wPRTQABrUHqUhIa4uabJ81L03JW6CK7KKNt1Mu0l_TZAZGBmgH1kiVtI9WCjhhENvFMw2Qv15ImrSFoa1dKWR5TAdokBhNu9RgH_DvIFlswsco7cSIWTDndej_hs"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Tech Stack -->
+<section class="scroll-mt-12" id="tech-stack">
+<h2 class="text-3xl font-bold text-navy-900 mb-8">Technologies</h2>
+<div class="flex flex-wrap gap-4" data-purpose="tech-badges">
+<span class="glow-pill px-6 py-3 bg-navy-800 text-white font-medium rounded-full text-sm">React Native</span>
+<span class="glow-pill px-6 py-3 bg-navy-800 text-white font-medium rounded-full text-sm">MongoDB</span>
+<span class="glow-pill px-6 py-3 bg-navy-800 text-white font-medium rounded-full text-sm">Express.js</span>
+<span class="glow-pill px-6 py-3 bg-navy-800 text-white font-medium rounded-full text-sm">Node.js</span>
+<span class="glow-pill px-6 py-3 bg-navy-800 text-white font-medium rounded-full text-sm">OAuth2</span>
+<span class="glow-pill px-6 py-3 bg-navy-800 text-white font-medium rounded-full text-sm">Expo</span>
+<span class="glow-pill px-6 py-3 bg-navy-800 text-white font-medium rounded-full text-sm">Tailwind CSS</span>
+</div>
+<!-- Instructions/Footnote -->
+<div class="mt-12 p-8 bg-slate-100 rounded-2xl border border-slate-200">
+<h4 class="font-bold text-navy-900 mb-4">View the Code</h4>
+<ul class="list-disc list-inside space-y-2 text-slate-600 text-sm">
+<li>Download <span class="text-accent-blue font-semibold">Expo Go</span> on your phone</li>
+<li>Access the <span class="text-accent-blue font-semibold underline">MovieLibrary project</span></li>
+<li>While the program is built for iPhones, Apple App Store policy no longer allows the program to be accessed publicly</li>
+</ul>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- END: MainContentGrid -->
+<!-- BEGIN: Footer -->
+<footer class="bg-navy-900 py-12 text-center text-slate-400 border-t border-slate-800">
+<div class="container mx-auto px-6">
+<p class="mb-4">Designed &amp; Built by Portfolio Developer</p>
+<div class="flex justify-center space-x-6">
+<a class="hover:text-white transition-colors" href="#">LinkedIn</a>
+<a class="hover:text-white transition-colors" href="#">Twitter</a>
+<a class="hover:text-white transition-colors" href="#">Resume</a>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+<script data-purpose="active-link-handler">
+    // Simple script to handle active state of navigation links on scroll
+    window.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = entry.target.getAttribute('id');
+          if (entry.intersectionRatio > 0.5) {
+            document.querySelectorAll('.nav-link').forEach((link) => {
+              link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+          }
+        });
+      }, { threshold: 0.5 });
+
+      // Track all sections that have an id, and highlighted by the nav
+      document.querySelectorAll('section[id]').forEach((section) => {
+        observer.observe(section);
+      });
+    });
+  </script>
+</body></html>

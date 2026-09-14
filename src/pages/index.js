@@ -1,9 +1,12 @@
 import React from "react";
-import {graphql} from 'gatsby';
+import { graphql } from 'gatsby';
 import Home from "./home";
 
+export { Head } from "./home";
+
 //query data to send to the Home page
-export default ({ data }) => <Home data={data} />;
+const IndexPage = ({ data }) => <Home data={data} />;
+export default IndexPage
 
 export const query = graphql`
     query {
@@ -23,4 +26,4 @@ export const query = graphql`
         }
     }
     `
-;
+    ;

@@ -1,121 +1,76 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
-import SEO from './seo.js';
-import CodeImg from '../images/code-background.jpg';
-import "fontsource-nunito/400.css";
-import "fontsource-nunito/700.css";
 
 const GlobalStyle = createGlobalStyle`
-    html {
-      background-color: #141414;
-      font-family: 'Nunito';
-      font-size: 16px;
-    }
+  :root {
+    --navy: #080d18;
+    --navy-mid: #0f1724;
+    --gold: #c9a96e;
+    --gold-dim: rgba(201,169,110,0.15);
+    --muted: #b3bccc;
+    --white: #f4f2ee;
+    --line: rgba(255,255,255,0.08);
+  }
 
-    body {
-      color: white;
-      margin: 0;
-    }
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    ul {
-      padding: 0;
-    }
+  html {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
 
-    a {
-      text-decoration: none;
-    }
+  body {
+    overflow-x: hidden;
+  }
 
-    footer {
-      background-color: #141414;
-      color: white;
-      font-style: italic;
-      padding: 50px 0 20px;
-      text-align: center;
-    }
+  /* ─── GRAIN OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 100;
+  }
 
-    footer a:visited {
-      color: white;
-    }
+  /* ─── TYPOGRAPHY ─── */
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+  }
 
-    p {
-      font-size: 1.25rem;
-      margin: 0;
-      padding: 1.5rem 10%;
-      text-align: left;
-    }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-    #principle-list {
-      display: flex;
-      justify-content: space-around;
-      margin: 0 0 10% 0;
-    }
+  ul {
+    padding: 0;
+    list-style: none;
+  }
 
-    .hero {
-      background: no-repeat center/cover url(${CodeImg});
-      height: 55vh;
-    }
-
-    .hero-header {
-      background: black;
-      margin: -2.5rem auto 0;
-      width: 75%;
-    }
-
-    .logo-link {
-      height: 64px;
-      margin: 5px;
-      width: 64px;
-    }
-
-    #error {
-      text-align: center;
-    }
-
-    @media (max-width: 1023px) {
-      .hero-header {
-        margin: -2rem auto 0;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .hero-header {
-        margin: -1.75rem auto 0;
-      }
-    }
-
-    @media (max-width: 650px) {
-      p {
-        font-size: 1rem;
-      }
-
-      #principle-list {
-        flex-direction: column;
-        margin: 0 10%;
-        padding-left: 7%;
-        text-align: left;
-      }
-
-      #about {
-        padding-bottom: 15%;
-      }
-
-      .hero {
-        height: 35vh;
-      }
-      
-      .hero-header {
-        padding: 0;
-        width: 90%;
-      }
-    }
+  /* ─── LAYOUT ─── */
+  .main-wrap {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem 12rem;
+  }
 `;
 
 export default function Layout({ children }) {
   return (
     <>
-      <GlobalStyle/>
-      <SEO />
+      <GlobalStyle />
       {children}
     </>
-  )
+  );
 }
