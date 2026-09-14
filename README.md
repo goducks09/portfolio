@@ -2,7 +2,7 @@
 
 ## Architecture & Design Philosophy
 
-The goal for this portfolio was to build a content-driven static site that automatically incorporates live GitHub repository data at build time. I like to try out different tools to see what benefit they might provide. Having previously focused heavily on standard React workflows, I decided to use **Gatsby** after seeing it recommended in a few places.
+The goal for this portfolio was to build a content-driven static site that automatically incorporates live GitHub repository data at build time. I like to try different tools to see what benefit they might provide. Having previously focused heavily on standard React workflows, I decided to use **Gatsby** after seeing it recommended in a few places.
 
 Before writing any code, I focused on the layout design by building interactive prototypes in **Webflow**. This allowed me to iterate rapidly on layout configurations, responsive breakpoints, and visual hierarchy without worrying about boilerplate setup. Once the design UI/UX patterns were finalized, I mapped the visual components directly into structured React components.
 
@@ -19,7 +19,7 @@ While bootstrapping the Gatsby environment was straightforward, the primary chal
 
 ### Roadblocks & Mitigations
 
-* **Schema Navigation:** Understanding how to construct tightly scoped queries using edges and nodes took some trial and error. I utilized GitHub’s GraphiQL Explorer in addition to manual debugging to isolate the exact repository metadata needed.
+* **Schema Navigation:** Understanding how to construct tightly scoped queries using edges and nodes took some trial and error. I utilized GitHub’s GraphQL Explorer in addition to manual debugging to isolate the exact repository metadata needed.
 * **Build-Time Data Ingestion:** Rather than relying on third-party source plugins, I authored a custom integration using Gatsby's `sourceNodes` lifecycle API. During the build phase, the site fetches the pinned repositories using the GitHub GraphQL API. The data is then used to create pages for each repository at build time.
 
 ## Key Takeaways

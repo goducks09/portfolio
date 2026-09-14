@@ -16,17 +16,17 @@ export default function AboutSection() {
       <RevealWrapper>
         <SectionLabel $align="center">About Me</SectionLabel>
         <H2Wrap $block>
-          <SectionHeading>Bridging the gap between engineering and the user</SectionHeading>
+          <SectionHeading>Creating software with a purpose</SectionHeading>
           <SectionUnderline />
         </H2Wrap>
         <BodyText>
-          I found my passion for programming a few years ago while automating processes at George Fox University. I've been hooked ever since — learning different languages and building projects ranging from websites to full-stack applications.
+          I'm a software engineer who writes code that solves problems. With a background in business, I understand that software needs to work, but it also needs to provide utility. That's why my process is to talk with stakeholders to understand their needs, then figure out how software can help. I did this at George Fox, where I met with HR partners to rebuild an employment orchestrator that no longer met their needs.
         </BodyText>
         <BodyText>
-          Having a background in business and customer service gives me a unique edge: I understand projects from both the technical side and the administrative and client perspectives. I'm especially strong in attention to detail, problem-solving, and communication. I have extensive experience being an essential member of a team while also being able to work independently.
+          Additionally, I've contributed to an enterprise timekeeping system and helped design and build a robust reservation system for an engineering maker lab. Celluphile is an app I built in my spare time to help organize my large movie library. Currently, I'm working on a tool to help identify spam and email phishing.
         </BodyText>
         <BodyText>
-          Outside of work, I enjoy a variety of music, movies, and gaming, and consider myself a lifelong learner.
+          When I'm not writing code, I'm usually listening to music, watching movies, or gaming.
         </BodyText>
       </RevealWrapper>
     </SectionWrapper>

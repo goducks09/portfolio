@@ -123,7 +123,7 @@ export default function SkillsSection() {
           </SkillCardTop>
           <ul>
             <li>PostgreSQL and relational database design</li>
-            <li>Docker-based development workflows and CI/CD exposure</li>
+            <li>Docker and CI/CD workflows</li>
             <li>Git version control and collaborative development practices</li>
           </ul>
         </SkillCard>

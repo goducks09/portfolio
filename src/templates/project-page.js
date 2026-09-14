@@ -306,7 +306,7 @@ export default function Page(context) {
                 <span>Case Study</span>
               </h1>
               <GithubButton href={url} target="_blank" rel="noreferrer">
-                Github Repo
+                GitHub Repo
                 <svg fill="none" viewBox="0 0 24 24">
                   <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
